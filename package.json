@@ -30,13 +30,24 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.19.1"
+    "@jupyterlab/application": "^0.19.1",
+    "@jupyterlab/codemirror": "^0.19.1",
+    "@jupyterlab/rendermime": "^0.19.1",
+    "@jupyterlab/rendermime-interfaces": "^1.2.1",
+    "@phosphor/messaging": "^1.2.2",
+    "markdown-it": "^8.4.2",
+    "markdown-it-container": "^2.0.0",
+    "markdown-it-sanitizer": "^0.4.3",
+    "svgbob-wasm": "^0.1.0"
   },
   "devDependencies": {
+    "@types/codemirror": "~0.0.70",
+    "@types/markdown-it": "^0.0.7",
+    "@types/markdown-it-container": "^2.0.2",
     "rimraf": "^2.6.1",
     "typescript": "~3.1.1"
   },
   "jupyterlab": {
-    "extension": true
+    "mimeExtension": true
   }
 }
