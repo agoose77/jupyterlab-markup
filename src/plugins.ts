@@ -17,15 +17,14 @@ export async function awaitRenderAvailable()
 export function bobPlugin(md: MarkdownIt, options: any) {
     options = options || {};
 
-    let openMarker = options.openMarker || '::: bob',
+    let openMarker = options.openMarker || "```bob",
         openChar = openMarker.charCodeAt(0),
-        closeMarker = options.closeMarker || ':::',
+        closeMarker = options.closeMarker || "```",
         closeChar = closeMarker.charCodeAt(0),
         render = options.render || md.renderer.rules.image;
-        // generateSource = options.generateSource || generateSourceDefault;
 
     function bob(state: any, startLine: number, endLine: number, silent?: boolean): boolean | void {
-        let nextLine, params, token, i,
+        let nextLine, token, i,
             autoClosed = false,
             start = state.bMarks[startLine] + state.tShift[startLine],
             max = state.eMarks[startLine];
@@ -41,9 +40,6 @@ export function bobPlugin(md: MarkdownIt, options: any) {
             if (openMarker[i] !== state.src[start + i]) { return false; }
         }
 
-        // markup = state.src.slice(start, start + i);
-        params = state.src.slice(start + i, max);
-
         // Since start is found, we can report success here in validation mode
         //
         if (silent) { return true; }
@@ -57,7 +53,7 @@ export function bobPlugin(md: MarkdownIt, options: any) {
             if (nextLine >= endLine) {
                 // unclosed block should be autoclosed by end of document.
                 // also block seems to be autoclosed by end of parent
-                break;
+                return false;
             }
 
             start = state.bMarks[nextLine] + state.tShift[nextLine];
@@ -66,7 +62,7 @@ export function bobPlugin(md: MarkdownIt, options: any) {
             if (start < max && state.sCount[nextLine] < state.blkIndent) {
                 // non-empty line with negative indent should stop the list:
                 // - ```
-                //  test
+                //  testK
                 break;
             }
 
@@ -108,16 +104,7 @@ export function bobPlugin(md: MarkdownIt, options: any) {
             .join('\n');
 
         // We generate a token list for the alt property, to mimic what the image parser does.
-        let altToken: any = [];
         // Remove leading space if any.
-        let alt = params ? params.slice(1) : 'uml diagram';
-        state.md.inline.parse(
-            alt,
-            state.md,
-            state.env,
-            altToken
-        );
-
         let html = svgbob.convert_string(contents);
         token = state.push('html_block', '', 0);
         token.content = html;
@@ -130,7 +117,7 @@ export function bobPlugin(md: MarkdownIt, options: any) {
 
     // @ts-ignore
     md.block.ruler.before('fence', 'bob_diagram', bob, {
-        alt: [ 'paragraph', 'reference', 'blockquote', 'list' ]
+        alt: [ 'paragraph', 'reference', 'blockquote', 'list']
     });
     md.renderer.rules.uml_diagram = render;
 }
