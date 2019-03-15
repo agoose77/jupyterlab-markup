@@ -2,8 +2,6 @@
 
 Adds additional markdown rendering support to markdown in JupyterLab by using [Markdown-It](https://github.com/markdown-it/markdown-it), [svgbob](https://github.com/ivanceras/svgbob), and [mermaidjs](https://github.com/knsv/mermaid).
 
-Note - at the moment, this marks all markdown as _trusted_, which is not ideal. We could either enable sanitisation at the Markdown-It level, which acts only on the `html_block` and `html_inline` tags, or extend the tags supported in the Jupyterlab sanitiser.
-
 
 ## Prerequisites
 
