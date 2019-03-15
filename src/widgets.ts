@@ -4,7 +4,6 @@ import {Message} from '@phosphor/messaging';
 import * as renderers from "./renderers";
 import {CodeMirrorEditor, Mode} from '@jupyterlab/codemirror';
 import {diagramPlugin} from './plugins';
-// import * as katexPlugin from "@iktakahiro/markdown-it-katex";
 import * as MarkdownIt from "markdown-it";
 
 
