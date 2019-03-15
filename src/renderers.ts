@@ -14,7 +14,7 @@ import {awaitRenderAvailable} from "./plugins"
 export async function renderMarkdown(
     options: renderMarkdown.IRenderOptions
 ): Promise<void> {
-    let {host, source, md, trusted, ...others} = options;
+    let {host, source, md, ...others} = options;
 
     // Clear the content if there is no source.
     if (!source) {
@@ -35,7 +35,6 @@ export async function renderMarkdown(
     // Render HTML.
     await renderHTML({
         host,
-        trusted: true,
         source: html,
         ...others
     });

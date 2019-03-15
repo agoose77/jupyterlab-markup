@@ -31,6 +31,8 @@ export function diagramPlugin(md: MarkdownIt, options: any) {
         let langName = info ? getLangName(info) : "";
         let imageHTML: string;
 
+        let tempAttrs: any[] = [];
+
         // Only handle custom token
         switch (langName) {
             case "bob": {
@@ -38,7 +40,13 @@ export function diagramPlugin(md: MarkdownIt, options: any) {
                 break;
             }
             case "mermaid": {
-                Mermaid.mermaidAPI.render("id1", token.content, (html: string) => {
+                const container_id = "mermaid-container";
+                Mermaid.mermaidAPI.render(container_id, token.content, (html: string) => {
+                    // We need to forcibly extract the max-width/height attributes to set on img tag
+                    let svg = document.getElementById(container_id);
+                    tempAttrs.push(["style", `max-width:${svg.style.maxWidth};max-height:${svg.style.maxHeight}`]);
+
+                    // Store HTML
                     imageHTML = html;
                 });
                 break;
@@ -48,8 +56,11 @@ export function diagramPlugin(md: MarkdownIt, options: any) {
             }
 
         }
-        return `<div>${imageHTML}</div>`
 
+        // Store encoded image data
+        tempAttrs.push(["src", `data:image/svg+xml,${encodeURIComponent(imageHTML)}`]);
+
+        return `<img ${slf.renderAttrs({attrs: tempAttrs})}>`;
 
     }
 
