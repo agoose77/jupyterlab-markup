@@ -1,6 +1,6 @@
 # jupyterlab-markup
 
-Adds additional rendering support to markdown in JupyterLab by using [Markdown-It](https://github.com/markdown-it/markdown-it), [svgbob](https://github.com/ivanceras/svgbob), and [mermaidjs](https://github.com/knsv/mermaid).
+Adds additional rendering support to markdown in JupyterLab by using [markdown-it](https://github.com/markdown-it/markdown-it), and [markdown-it-diagrams](https://github.com/agoose77/markdown-it-diagrams).
 
 
 ## Prerequisites
