@@ -10,7 +10,7 @@ Adds additional markdown rendering support to markdown in JupyterLab by using [M
 ## Installation
 
 ```bash
-jupyter labextension install jupyterlab-markup
+jupyter labextension install @agoose77/jupyterlab-markup
 ```
 
 ## Development
