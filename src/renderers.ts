@@ -1,6 +1,6 @@
-import {renderHTML} from "@jupyterlab/rendermime"
-import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
-import { ISanitizer } from '@jupyterlab/apputils';
+import {removeMath, renderHTML, replaceMath} from "@jupyterlab/rendermime"
+import {IRenderMime} from '@jupyterlab/rendermime-interfaces';
+import {ISanitizer} from '@jupyterlab/apputils';
 import * as MarkdownIt from "markdown-it"
 import {awaitRenderAvailable} from "./plugins"
 
@@ -14,8 +14,7 @@ import {awaitRenderAvailable} from "./plugins"
 export async function renderMarkdown(
     options: renderMarkdown.IRenderOptions
 ): Promise<void> {
-    // Unpack the options.
-    let { host, source, md, trusted, ...others} = options;
+    let {host, source, md, trusted, ...others} = options;
 
     // Clear the content if there is no source.
     if (!source) {
@@ -23,31 +22,23 @@ export async function renderMarkdown(
         return;
     }
 
-    // Need to be able to render!
+    // Separate math from normal markdown text.
+    let parts = removeMath(source);
+
+    // Wait for WASM import for svgbob!
     await awaitRenderAvailable();
-    let html = md.render(source);
+    let html = md.render(parts['text']);
 
+    // Replace math.
+    html = replaceMath(html, parts['math']);
 
-    await renderHTML({host, source: html, trusted:true, ...others});
-
-    // // Separate math from normal markdown text.
-    // let parts = removeMath(source);
-    //
-    // // Convert the markdown to HTML.
-    // let html = await Private.renderMarked(parts['text']);
-    //
-    // // Replace math.
-    // html = replaceMath(html, parts['math']);
-    //
-    // // Render HTML.
-    // await renderHTML({
-    //     host,
-    //     source: html,
-    //     ...others
-    // });
-    //
-    // // Apply ids to the header nodes.
-    // Private.headerAnchors(host);
+    // Render HTML.
+    await renderHTML({
+        host,
+        trusted: true,
+        source: html,
+        ...others
+    });
 }
 
 /**
