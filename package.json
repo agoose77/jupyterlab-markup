@@ -1,6 +1,6 @@
 {
   "name": "@agoose77/jupyterlab-markup",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Additional markdown rendering support in markdown.",
   "keywords": [
     "jupyter",
@@ -37,8 +37,7 @@
     "@phosphor/messaging": "^1.2.2",
     "markdown-it": "^8.4.2",
     "markdown-it-container": "^2.0.0",
-    "mermaid": "^8.0.0",
-    "svgbob-wasm": "^0.1.0"
+    "markdown-it-diagrams": "0.0.4"
   },
   "devDependencies": {
     "@types/codemirror": "~0.0.70",

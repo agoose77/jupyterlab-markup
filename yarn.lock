@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-"@iktakahiro/markdown-it-katex@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@iktakahiro/markdown-it-katex/-/markdown-it-katex-3.1.0.tgz#cd40c1037f038ab00cbfee2464604435848deae9"
-  dependencies:
-    katex "^0.10.0"
-
 "@jupyterlab/application@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@jupyterlab/application/-/application-0.19.1.tgz#2f976a2e140041543f1dcf14a52eb081f7729739"
@@ -362,7 +356,7 @@ color-name@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.3.tgz#a7d0558bd89c42f795dd42328f740831ca53bc25"
 
-commander@2, commander@^2.19.0:
+commander@2:
   version "2.19.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
 
@@ -768,12 +762,6 @@ jsonify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/jsonify/-/jsonify-0.0.0.tgz#2c74b6ee41d93ca51b7b5aaee8f503631d252a73"
 
-katex@^0.10.0:
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.10.1.tgz#5bb0b72bf19cecfc1fa217a9261760e5d301efff"
-  dependencies:
-    commander "^2.19.0"
-
 linkify-it@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.1.0.tgz#c4caf38a6cd7ac2212ef3c7d2bde30a91561f9db"
@@ -813,6 +801,14 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
 markdown-it-container@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it-container/-/markdown-it-container-2.0.0.tgz#0019b43fd02eefece2f1960a2895fba81a404695"
+
+markdown-it-diagrams@0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/markdown-it-diagrams/-/markdown-it-diagrams-0.0.4.tgz#14765daae7d6993970dd114fa92f31ea16bd1287"
+  dependencies:
+    markdown-it "^8.4.2"
+    mermaid "^8.0.0"
+    svgbob-wasm "^0.1.0"
 
 markdown-it@^8.4.2:
   version "8.4.2"

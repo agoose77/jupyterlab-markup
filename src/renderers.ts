@@ -2,7 +2,7 @@ import {removeMath, renderHTML, replaceMath} from "@jupyterlab/rendermime"
 import {IRenderMime} from '@jupyterlab/rendermime-interfaces';
 import {ISanitizer} from '@jupyterlab/apputils';
 import * as MarkdownIt from "markdown-it"
-import {awaitRenderAvailable} from "./plugins"
+import {awaitRenderAvailable} from "markdown-it-diagrams"
 
 /**
  * Render Markdown into a host node.

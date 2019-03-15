@@ -3,7 +3,7 @@ import {IRenderMime} from '@jupyterlab/rendermime-interfaces';
 import {Message} from '@phosphor/messaging';
 import * as renderers from "./renderers";
 import {CodeMirrorEditor, Mode} from '@jupyterlab/codemirror';
-import {diagramPlugin} from './plugins';
+import {diagramPlugin} from "markdown-it-diagrams";
 import * as MarkdownIt from "markdown-it";
 
 
@@ -55,7 +55,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
             typographer: true,
             langPrefix: `cm-s-${CodeMirrorEditor.defaultConfig.theme} language-`,
             highlight: highlightCode
-        }).use(diagramPlugin);//.use(katexPlugin, {throwOnError: true});
+        }).use(diagramPlugin);
     }
 
     /**
