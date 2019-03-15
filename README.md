@@ -9,9 +9,17 @@ Adds additional markdown rendering support to markdown in JupyterLab by using [M
 
 ## Installation
 
+Ensure mimetype exists for wasm:
+```bash
+echo "application/wasm      wasm" | sudo tee -a /etc/mime.types
+```
+
+Install extension:
 ```bash
 jupyter labextension install @agoose77/jupyterlab-markup
 ```
+
+You will need to reinstall the extension if you do these steps out of order.
 
 ## Development
 
