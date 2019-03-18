@@ -3,6 +3,9 @@
 Adds additional rendering support to markdown in JupyterLab by using [markdown-it](https://github.com/markdown-it/markdown-it), and [markdown-it-diagrams](https://github.com/agoose77/markdown-it-diagrams).
 
 
+![svgbob rendering](https://i.imgur.com/RbDioU8.gif)
+![svgbob rendering](https://i.imgur.com/IQSasVZ.gif)
+
 ## Prerequisites
 
 * JupyterLab
