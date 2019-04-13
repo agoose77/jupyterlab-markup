@@ -5,6 +5,8 @@ import * as renderers from "./renderers";
 import {CodeMirrorEditor, Mode} from '@jupyterlab/codemirror';
 import {diagramPlugin} from "markdown-it-diagrams";
 import * as MarkdownIt from "markdown-it";
+import * as MarkdownItFootnote from "markdown-it-footnote"
+import * as MarkdownItDeflist from "markdown-it-deflist"
 
 
 function highlightCode(str: string, lang: string) {
@@ -48,14 +50,16 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
     constructor(options: IRenderMime.IRendererOptions) {
         super(options);
         this.addClass('jp-RenderedMarkdown');
-
         this.md = new MarkdownIt({
             html: true,
             linkify: true,
             typographer: true,
             langPrefix: `cm-s-${CodeMirrorEditor.defaultConfig.theme} language-`,
             highlight: highlightCode
-        }).use(diagramPlugin);
+        })
+            .use(diagramPlugin)
+            .use(MarkdownItFootnote)
+            .use(MarkdownItDeflist);
     }
 
     /**
