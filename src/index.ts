@@ -17,7 +17,13 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
         mimeTypes: [MIME_TYPE],
         extensions: ['.md']
       }
-    ]
+    ],
+    documentWidgetFactoryOptions: {
+          name: 'Markdown',
+          primaryFileType: 'markdown',
+          fileTypes: ['markdown'],
+          defaultFor: ['markdown']
+    }
   }
 ];
 
