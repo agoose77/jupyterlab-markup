@@ -983,6 +983,28 @@
   resolved "https://registry.yarnpkg.com/@braintree/sanitize-url/-/sanitize-url-3.1.0.tgz#8ff71d51053cd5ee4981e5a501d80a536244f7fd"
   integrity sha512-GcIY79elgB+azP74j8vqkiXz8xLFfIzbQJdlwOPisgbKT00tviJQuEghOXSMVxJ00HoYJbGswr4kcllUc4xCcg==
 
+"@jupyterlab/application@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/application/-/application-1.0.1.tgz#aac172235f30dec79c1047dda83b87718d3689ae"
+  integrity sha512-rcEIrcjWMukeM23GZ9WJYnS1+JPYCClyfM07qhyIbDIdm7afQs6oIFegeeuo/6Or/AJ+lYMpVAW9vTpLLQluKQ==
+  dependencies:
+    "@jupyterlab/apputils" "^1.0.1"
+    "@jupyterlab/coreutils" "^3.0.0"
+    "@jupyterlab/docregistry" "^1.0.1"
+    "@jupyterlab/rendermime" "^1.0.1"
+    "@jupyterlab/rendermime-interfaces" "^1.3.0"
+    "@jupyterlab/services" "^4.0.1"
+    "@phosphor/algorithm" "^1.1.3"
+    "@phosphor/application" "^1.6.3"
+    "@phosphor/commands" "^1.6.3"
+    "@phosphor/coreutils" "^1.3.1"
+    "@phosphor/disposable" "^1.2.0"
+    "@phosphor/messaging" "^1.2.3"
+    "@phosphor/properties" "^1.1.3"
+    "@phosphor/signaling" "^1.2.3"
+    "@phosphor/widgets" "^1.8.0"
+    font-awesome "~4.7.0"
+
 "@jupyterlab/apputils@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@jupyterlab/apputils/-/apputils-1.0.1.tgz#66bf45b40953155869c24d849bda36098ab6b9c5"
@@ -1056,6 +1078,53 @@
     path-posix "~1.0.0"
     url-parse "~1.4.3"
 
+"@jupyterlab/docregistry@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/docregistry/-/docregistry-1.0.1.tgz#28ca14e7c43c161384d5582e011b0a70522bb8eb"
+  integrity sha512-2BXJl2SBGSXcPN0uLEAZJs2ZdGzXTjB6/NFO2UUjRf4Ixcj6OqqX+S4ys37Yag3/5csUabcrM+/vazRFqza5xQ==
+  dependencies:
+    "@jupyterlab/apputils" "^1.0.1"
+    "@jupyterlab/codeeditor" "^1.0.0"
+    "@jupyterlab/codemirror" "^1.0.1"
+    "@jupyterlab/coreutils" "^3.0.0"
+    "@jupyterlab/observables" "^2.2.0"
+    "@jupyterlab/rendermime" "^1.0.1"
+    "@jupyterlab/rendermime-interfaces" "^1.3.0"
+    "@jupyterlab/services" "^4.0.1"
+    "@phosphor/algorithm" "^1.1.3"
+    "@phosphor/coreutils" "^1.3.1"
+    "@phosphor/disposable" "^1.2.0"
+    "@phosphor/messaging" "^1.2.3"
+    "@phosphor/signaling" "^1.2.3"
+    "@phosphor/widgets" "^1.8.0"
+
+"@jupyterlab/fileeditor@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/fileeditor/-/fileeditor-1.0.1.tgz#8319994e9daaa9583b08d4465c1236d26820deb4"
+  integrity sha512-PPvFH4WJynLjO3lCh+kKMccWU6ixFy0t/tLsN9ZzkecHQp77/6JvV7ooPRc5hbtBA1eb0qjO5NzZcEoxcrX0Ng==
+  dependencies:
+    "@jupyterlab/apputils" "^1.0.1"
+    "@jupyterlab/codeeditor" "^1.0.0"
+    "@jupyterlab/docregistry" "^1.0.1"
+    "@jupyterlab/statusbar" "^1.0.1"
+    "@phosphor/coreutils" "^1.3.1"
+    "@phosphor/messaging" "^1.2.3"
+    "@phosphor/widgets" "^1.8.0"
+    react "~16.8.4"
+
+"@jupyterlab/markdownviewer@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/markdownviewer/-/markdownviewer-1.0.1.tgz#a3d61fcec96a86a9284245940ae5c76b069f3063"
+  integrity sha512-A3kj2aMBeRc98gjtQNyI7QP2v0ba4Tj9g4mDlbBlbIOB16N+djDOy761+gsfKf2ZCObKToFnCoP5ABsL2m9oBA==
+  dependencies:
+    "@jupyterlab/apputils" "^1.0.1"
+    "@jupyterlab/coreutils" "^3.0.0"
+    "@jupyterlab/docregistry" "^1.0.1"
+    "@jupyterlab/rendermime" "^1.0.1"
+    "@phosphor/coreutils" "^1.3.1"
+    "@phosphor/messaging" "^1.2.3"
+    "@phosphor/widgets" "^1.8.0"
+
 "@jupyterlab/observables@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@jupyterlab/observables/-/observables-2.2.0.tgz#be29c6cadad88c202e7963ace2410bbe7b101226"
@@ -1075,7 +1144,7 @@
     "@phosphor/coreutils" "^1.3.1"
     "@phosphor/widgets" "^1.8.0"
 
-"@jupyterlab/rendermime@^1.0.0":
+"@jupyterlab/rendermime@^1.0.0", "@jupyterlab/rendermime@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@jupyterlab/rendermime/-/rendermime-1.0.1.tgz#f5126b1a59c7daefb0b689ba7cd2f1192f7b7e8d"
   integrity sha512-/ZwhIZ5nbv5AqMxZj6wTpZGfdqcBkVeHcQGAKvqD9MjICw+tlziE9M6kvzlkWZ3B8aW1kLas1fXDJTtQ0HCgbQ==
@@ -1140,6 +1209,15 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@phosphor/algorithm/-/algorithm-1.1.3.tgz#fb0e974f4e81aadc06f948770b3060c4ec8a1e27"
   integrity sha512-+dkdYTBglR+qGnLVQdCvYojNZMGxf+xSl1Jeksha3pm7niQktSFz2aR5gEPu/nI5LM8T8slTpqE4Pjvq8P+IVA==
+
+"@phosphor/application@^1.6.3":
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/@phosphor/application/-/application-1.6.4.tgz#8e8d649260d700ac77fb1cfb78af566730052fd0"
+  integrity sha512-cGSC6JWxW3BmTzHRIjS8x/p3nC9IXWdeS0HiO/iZvmT6NbTEMBreEGM6No+2KWqr2VkyQ7l03cCB3h9mMeyvMw==
+  dependencies:
+    "@phosphor/commands" "^1.6.3"
+    "@phosphor/coreutils" "^1.3.1"
+    "@phosphor/widgets" "^1.8.1"
 
 "@phosphor/collections@^1.1.3":
   version "1.1.3"
@@ -1218,7 +1296,7 @@
   dependencies:
     "@phosphor/algorithm" "^1.1.3"
 
-"@phosphor/widgets@^1.8.0":
+"@phosphor/widgets@^1.8.0", "@phosphor/widgets@^1.8.1":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@phosphor/widgets/-/widgets-1.8.1.tgz#e6398984a37b17b0a55417eab5e3f3517af88186"
   integrity sha512-OY5T0nAioYTitPks/lCHm7a6QpjRB/XviIT2j6WtYm5J1U8MluIPpClqZ/NQbZfm23BYpmJeiQQyZA+5YphsDA==
@@ -2572,6 +2650,11 @@ flush-write-stream@^1.0.2:
   dependencies:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
+
+font-awesome@~4.7.0:
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
 
 for-in@^1.0.2:
   version "1.0.2"
