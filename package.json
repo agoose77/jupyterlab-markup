@@ -1,6 +1,6 @@
 {
   "name": "@agoose77/jupyterlab-markup",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Additional markdown rendering support in markdown.",
   "keywords": [
     "jupyter",
@@ -40,7 +40,7 @@
     "markdown-it": "^10.0.0",
     "markdown-it-container": "^2.0.0",
     "markdown-it-deflist": "^2.0.3",
-    "markdown-it-diagrams": "^0.1.1",
+    "markdown-it-diagrams": "^0.1.2",
     "markdown-it-footnote": "^3.0.2"
   },
   "devDependencies": {
