@@ -47,3 +47,19 @@ npm run build
 jupyter lab build
 ```
 
+``` mermaid 
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+``` bob 
+     .---.
+    /-o-/--
+ .-/ / /->
+( *  \/
+ '-.  \
+    \ /
+     '
+```
