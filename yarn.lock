@@ -1266,9 +1266,9 @@ lodash.mergewith@^4.6.1:
   integrity sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==
 
 lodash@^4.17.11, lodash@^4.17.15:
-  version "4.17.15"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
-  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
+  version "4.17.19"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
+  integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
 
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   version "1.4.0"
@@ -1292,14 +1292,14 @@ markdown-it-deflist@^2.0.3:
   resolved "https://registry.yarnpkg.com/markdown-it-deflist/-/markdown-it-deflist-2.0.3.tgz#5727db04184d3cb2bc6ee4a9641e3a1091d5fd6f"
   integrity sha512-/BNZ8ksW42bflm1qQLnRI09oqU2847Z7MVavrR0MORyKLtiUYOMpwtlAfMSZAQU9UCvaUZMpgVAqoS3vpToJxw==
 
-markdown-it-diagrams@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/markdown-it-diagrams/-/markdown-it-diagrams-0.1.1.tgz#bbdd50d148b5542bba3d297090dafda73b7701dd"
-  integrity sha512-2ebEEK0OdUn0J3U0G8sEbwwlqwtlOLiUJu4Ot+GzB9jYMrmV7nl52fg/ofh1tCQbdP7K0E7UQXBCBBPi1rQTeg==
+markdown-it-diagrams@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/markdown-it-diagrams/-/markdown-it-diagrams-0.1.2.tgz#0121771f1de05755596b4d1045a48c83a3a6ea56"
+  integrity sha512-1y+y+BTNK597DIgCz5vq4H7mZnF1Zlla+vgQpQOkwWMHsRd8f/t6yzrF/KwPUnOhPwikPaL2KetZzx0PrukbUg==
   dependencies:
     markdown-it "^10.0.0"
     mermaid "^8.4.8"
-    svgbob-wasm "^0.2.0"
+    svgbob-wasm "^0.2.1"
 
 markdown-it-footnote@^3.0.2:
   version "3.0.2"
@@ -1717,10 +1717,10 @@ supports-color@^6.1.0:
   dependencies:
     has-flag "^3.0.0"
 
-svgbob-wasm@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/svgbob-wasm/-/svgbob-wasm-0.2.0.tgz#a28ecb9bdb98062d208a6c30c67180860f92f0ef"
-  integrity sha512-sSspptiZVV+VJyIC/LNL3GttsnSmzdMlaa6UVqNxj1WNSyijPa0X+/lceuZ3R0kf0WtIzKREJQjwhd1CpWpXWw==
+svgbob-wasm@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/svgbob-wasm/-/svgbob-wasm-0.2.1.tgz#5112f236d8bd46946d9615315c19a3c948fd22d1"
+  integrity sha512-z7GQpTjCU0SDWU8QN9O1UJggFI1AsUeqZjZ106EQ/4g0icM1fEKQ9e0BM5MxSpKiby5LpvCt1CIOdPAzEIiwZw==
 
 terser@^4.0.0:
   version "4.1.2"
