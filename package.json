@@ -15,7 +15,8 @@
   "author": "Angus Hollands",
   "files": [
     "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
-    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}",
+    "LICENSE.txt"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

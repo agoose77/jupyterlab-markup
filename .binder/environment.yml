@@ -1,4 +1,4 @@
-name: jupyter-markup
+name: jupyterlab-markup
 
 channels:
   - conda-forge
