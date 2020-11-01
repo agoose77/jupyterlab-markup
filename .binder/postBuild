@@ -4,6 +4,8 @@ set -eux
 python -m pip install -e . --no-deps --ignore-installed
 jupyter serverextension enable jupyterlab_markup --sys-prefix
 jlpm bootstrap
+jupyter labextension install $(npm pack) --no-build --debug
+jupyter lab build --debug --dev-build=False --minimize=False
 
 jupyter labextension list
 jupyter serverextension list

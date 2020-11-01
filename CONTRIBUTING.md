@@ -6,6 +6,7 @@ For a development install (requires npm version 4 or later), do the following in
 python -m pip install -e .
 jupyter serverextension enable jupyterlab_markup
 jlpm bootstrap
+jupyter labextension install .
 ```
 
 To rebuild the package and the JupyterLab app:

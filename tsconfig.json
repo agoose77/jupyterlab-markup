@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
     "declaration": true,
     "lib": ["es2015", "dom"],
     "module": "esnext",
@@ -7,13 +9,14 @@
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "outDir": "lib",
+    "preserveWatchOutput": true,
     "rootDir": "src",
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": false,
     "target": "es2017",
-    "types": [],
-    "allowSyntheticDefaultImports": true,
-    "sourceMap": true
+    "tsBuildInfoFile": "lib/.tsbuildinfo",
+    "types": []
   },
   "include": ["src/**/*"]
 }

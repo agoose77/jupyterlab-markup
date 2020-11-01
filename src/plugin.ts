@@ -124,7 +124,12 @@ const anchor: JupyterFrontEndPlugin<void> = {
         const replaceLinkPlugin = await import(
           /* webpackChunkName: "markdown-it-anchor" */ 'markdown-it-anchor'
         );
-        return [replaceLinkPlugin.default, {}];
+        return [
+          replaceLinkPlugin.default,
+          {
+            permalink: true,
+          },
+        ];
       },
     });
   },
