@@ -2,6 +2,9 @@ import { Token } from '@lumino/coreutils';
 import MarkdownIt from 'markdown-it';
 import { RenderedMarkdown } from './widgets';
 
+/**
+ * The plugin ID stem for all lab extensions
+ */
 export const PLUGIN_ID = '@agoose77/jupyterlab-markup';
 
 /* tslint:disable */
@@ -11,6 +14,9 @@ export const PLUGIN_ID = '@agoose77/jupyterlab-markup';
 export const IMarkdownIt = new Token<IMarkdownIt>(PLUGIN_ID);
 /* tslint:enable */
 
+/**
+ * A manager for adding MarkdownIt plugins
+ */
 export interface IMarkdownIt {
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
   removePluginProvider(id: string): void;
@@ -20,6 +26,9 @@ export interface IMarkdownIt {
   ): Promise<MarkdownIt>;
 }
 
+/**
+ * A namespace for plugin-related types and interfaces
+ */
 export namespace IMarkdownIt {
   export interface IPlugin {
     (md: MarkdownIt, ...params: any[]): void;

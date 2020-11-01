@@ -5,6 +5,9 @@ import { IMarkdownIt, PLUGIN_ID } from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
 
+/**
+ * The main plugin which overloads default markdown rendering by `marked`
+ */
 const core: JupyterFrontEndPlugin<IMarkdownIt> = {
   id: PLUGIN_ID,
   autoStart: true,
@@ -18,6 +21,9 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
   },
 };
 
+/**
+ * Provides text-based diagrams in code blocks
+ */
 const diagrams: JupyterFrontEndPlugin<void> = {
   id: `${PLUGIN_ID}:diagrams`,
   autoStart: true,
@@ -36,6 +42,9 @@ const diagrams: JupyterFrontEndPlugin<void> = {
   },
 };
 
+/**
+ * Provides footnotes
+ */
 const footnote: JupyterFrontEndPlugin<void> = {
   id: `${PLUGIN_ID}:footnote`,
   autoStart: true,
@@ -53,6 +62,9 @@ const footnote: JupyterFrontEndPlugin<void> = {
   },
 };
 
+/**
+ * Provides definition lists
+ */
 const deflist: JupyterFrontEndPlugin<void> = {
   id: `${PLUGIN_ID}:deflist`,
   autoStart: true,
@@ -70,6 +82,9 @@ const deflist: JupyterFrontEndPlugin<void> = {
   },
 };
 
+/**
+ * Replaces local links to the Jupyter files URL
+ */
 const replacelink: JupyterFrontEndPlugin<void> = {
   id: `${PLUGIN_ID}:markdown-it-replace-link`,
   autoStart: true,
@@ -94,7 +109,5 @@ const replacelink: JupyterFrontEndPlugin<void> = {
     });
   },
 };
-
-// markdown-it-replace-link
 
 export default [core, diagrams, footnote, deflist, replacelink];

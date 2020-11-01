@@ -15,6 +15,10 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    * @param options - The options for initializing the widget.
    */
   md: MarkdownIt;
+
+  /**
+   * A static manager set by the core plugin for getting MarkdownIt instances
+   */
   static markdownItManager: IMarkdownIt;
 
   constructor(options: IRenderMime.IRendererOptions) {
