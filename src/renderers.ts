@@ -1,8 +1,7 @@
-import {removeMath, renderHTML, replaceMath} from "@jupyterlab/rendermime"
-import {IRenderMime} from '@jupyterlab/rendermime-interfaces';
-import {ISanitizer} from '@jupyterlab/apputils';
-import * as MarkdownIt from "markdown-it"
-import {awaitRenderAvailable} from "markdown-it-diagrams"
+import { removeMath, renderHTML, replaceMath } from '@jupyterlab/rendermime';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+import { ISanitizer } from '@jupyterlab/apputils';
+import * as MarkdownIt from 'markdown-it';
 
 /**
  * Render Markdown into a host node.
@@ -12,85 +11,83 @@ import {awaitRenderAvailable} from "markdown-it-diagrams"
  * @returns A promise which resolves when rendering is complete.
  */
 export async function renderMarkdown(
-    options: renderMarkdown.IRenderOptions
+  options: renderMarkdown.IRenderOptions
 ): Promise<void> {
-    let {host, source, md, ...others} = options;
+  let { host, source, md, ...others } = options;
 
-    // Clear the content if there is no source.
-    if (!source) {
-        host.textContent = '';
-        return;
-    }
+  // Clear the content if there is no source.
+  if (!source) {
+    host.textContent = '';
+    return;
+  }
 
-    // Separate math from normal markdown text.
-    let parts = removeMath(source);
+  // Separate math from normal markdown text.
+  let parts = removeMath(source);
 
-    // Wait for WASM import for svgbob!
-    await awaitRenderAvailable();
-    let html = md.render(parts['text']);
+  let html = md.render(parts['text']);
 
-    // Replace math.
-    html = replaceMath(html, parts['math']);
+  // Replace math.
+  html = replaceMath(html, parts['math']);
 
-    // Render HTML.
-    await renderHTML({
-        host,
-        source: html,
-        ...others
-    });
+  // Render HTML.
+  await renderHTML({
+    host,
+    source: html,
+    ...others,
+  });
 }
 
 /**
  * The namespace for the `renderMarkdown` function statics.
  */
 export namespace renderMarkdown {
+  /**
+   * The options for the `renderMarkdown` function.
+   */
+  export interface IRenderOptions {
     /**
-     * The options for the `renderMarkdown` function.
+     * The host node for the rendered Markdown.
      */
-    export interface IRenderOptions {
-        /**
-         * The host node for the rendered Markdown.
-         */
-        host: HTMLElement;
+    host: HTMLElement;
 
-        /**
-         * The Markdown source to render.
-         */
-        source: string;
+    /**
+     * The Markdown source to render.
+     */
+    source: string;
 
-        /**
-         * Whether the source is trusted.
-         */
-        trusted: boolean;
+    /**
+     * Whether the source is trusted.
+     */
+    trusted: boolean;
 
-        /**
-         * The html sanitizer for untrusted source.
-         */
-        sanitizer: ISanitizer;
+    /**
+     * The html sanitizer for untrusted source.
+     */
+    sanitizer: ISanitizer;
 
-        /**
-         * An optional url resolver.
-         */
-        resolver: IRenderMime.IResolver | null;
+    /**
+     * An optional url resolver.
+     */
+    resolver: IRenderMime.IResolver | null;
 
-        /**
-         * An optional link handler.
-         */
-        linkHandler: IRenderMime.ILinkHandler | null;
+    /**
+     * An optional link handler.
+     */
+    linkHandler: IRenderMime.ILinkHandler | null;
 
-        /**
-         * Whether the node should be typeset.
-         */
-        shouldTypeset: boolean;
+    /**
+     * Whether the node should be typeset.
+     */
+    shouldTypeset: boolean;
 
-        /**
-         * MarkdownIt renderer
-         */
-        md: MarkdownIt;
+    /**
+     * MarkdownIt renderer
+     */
+    md: MarkdownIt;
 
-        /**
-         * The LaTeX typesetter for the application.
-         */
-        latexTypesetter: IRenderMime.ILatexTypesetter | null;
-    }
+    /**
+     * The LaTeX typesetter for the application.
+     */
+    latexTypesetter: IRenderMime.ILatexTypesetter | null;
+  }
 }
