@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+jlpm --ignore-optional
+jupyter labextension link . --no-build --debug
+jupyter lab build --debug --minimize=True --dev-build=False
