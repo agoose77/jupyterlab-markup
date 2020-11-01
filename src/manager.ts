@@ -12,8 +12,8 @@ export class MarkdownItManager implements IMarkdownIt {
   /**
    * add a provider for a plugin which can be resolve lazily
    */
-  addPluginProvider(name: string, provider: IMarkdownIt.IPluginProvider): void {
-    this._pluginProviders.set(name, provider);
+  addPluginProvider(provider: IMarkdownIt.IPluginProvider): void {
+    this._pluginProviders.set(provider.id, provider);
   }
 
   /**
@@ -31,7 +31,7 @@ export class MarkdownItManager implements IMarkdownIt {
 
     for (const [name, provider] of this._pluginProviders.entries()) {
       try {
-        const plugin = await provider();
+        const plugin = await provider.plugin();
         md = md.use(plugin);
       } catch (err) {
         console.warn(`Failed to load/use markdown-it plugin ${name}`, err);

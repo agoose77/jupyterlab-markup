@@ -3,9 +3,7 @@ set -eux
 
 python -m pip install -e . --no-deps --ignore-installed
 jupyter serverextension enable jupyterlab_markup --sys-prefix
-jupyter serverextension list
+jlpm bootstrap
 
-jlpm --ignore-optional
-jupyter labextension install . --no-build --debug
-jupyter lab build --debug --minimize=False --dev-build=False
 jupyter labextension list
+jupyter serverextension list

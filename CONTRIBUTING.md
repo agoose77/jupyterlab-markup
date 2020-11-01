@@ -5,9 +5,7 @@ For a development install (requires npm version 4 or later), do the following in
 ```bash
 python -m pip install -e .
 jupyter serverextension enable jupyterlab_markup
-jlpm --ignore-optional
-jlpm build
-jupyter labextension install .
+jlpm bootstrap
 ```
 
 To rebuild the package and the JupyterLab app:
@@ -39,16 +37,18 @@ import {
 import { IMarkdownIt } from '@agoose77/jupyterlab-markup';
 
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: `@your/package:deflist`,
+  id: `${PLUGIN_ID}:deflist`,
   autoStart: true,
   requires: [IMarkdownIt],
   activate: (app: JupyterFrontEnd, markdownIt: IMarkdownIt) => {
-    markdownIt.addPluginProvider('markdown-it-deflist', async () => {
-      // _please_ lazy load to avoid bloating the main vendor bundle!
-      const deflistPlugin = await import(
-        /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
-      );
-      return deflistPlugin.default;
+    markdownIt.addPluginProvider({
+      id: 'markdown-it-deflist',
+      plugin: async () => {
+        const deflistPlugin = await import(
+          /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
+        );
+        return deflistPlugin.default;
+      },
     });
   },
 };

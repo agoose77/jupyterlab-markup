@@ -11,8 +11,8 @@ export const IMarkdownIt = new Token<IMarkdownIt>(PLUGIN_ID);
 /* tslint:enable */
 
 export interface IMarkdownIt {
-  addPluginProvider(name: string, provider: IMarkdownIt.IPluginProvider): void;
-  removePluginProvider(name: string): void;
+  addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
+  removePluginProvider(id: string): void;
   getMarkdownIt(options?: MarkdownIt.Options): Promise<MarkdownIt>;
 }
 
@@ -21,6 +21,7 @@ export namespace IMarkdownIt {
     (md: MarkdownIt, ...params: any[]): void;
   }
   export interface IPluginProvider {
-    (): Promise<IPlugin>;
+    id: string;
+    plugin: () => Promise<IPlugin>;
   }
 }

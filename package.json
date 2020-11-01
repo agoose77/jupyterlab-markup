@@ -25,10 +25,11 @@
     "url": "https://github.com/agoose77/jupyterlab-markup.git"
   },
   "scripts": {
+    "bootstrap": "jlpm --ignore-optional && jlpm lint && jlpm build && jupyter labextension install . --debug",
     "build": "tsc",
     "clean": "rimraf lib",
-    "watch": "tsc -w",
-    "lint": "prettier --list-different --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md,.yml}\""
+    "lint": "prettier --list-different --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md,.yml}\"",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@jupyterlab/application": "^2.0.2",
@@ -42,15 +43,15 @@
     "markdown-it-container": "^2.0.0",
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-diagrams": "^0.1.2",
-    "markdown-it-footnote": "^3.0.2",
-    "prettier": "^2.1.2"
+    "markdown-it-footnote": "^3.0.2"
   },
   "devDependencies": {
     "@types/codemirror": "^0.0.74",
     "@types/markdown-it": "^0.0.9",
     "@types/markdown-it-container": "^2.0.2",
     "rimraf": "~3.0.0",
-    "typescript": "~3.7.3"
+    "typescript": "~3.7.3",
+    "prettier": "^2.1.2"
   },
   "jupyterlab": {
     "extension": "lib/plugin.js"
