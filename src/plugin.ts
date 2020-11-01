@@ -70,4 +70,31 @@ const deflist: JupyterFrontEndPlugin<void> = {
   },
 };
 
-export default [core, diagrams, footnote, deflist];
+const replacelink: JupyterFrontEndPlugin<void> = {
+  id: `${PLUGIN_ID}:markdown-it-replace-link`,
+  autoStart: true,
+  requires: [IMarkdownIt],
+  activate: (app, markdownIt: IMarkdownIt) => {
+    markdownIt.addPluginProvider({
+      id: 'markdown-it-replace-link',
+      options: async (widget) => {
+        const { isLocal, resolveUrl } = widget.resolver;
+        return {
+          replaceLink: function (link: string, env: any) {
+            return isLocal(link) ? resolveUrl(link) : link;
+          },
+        };
+      },
+      plugin: async () => {
+        const replaceLinkPlugin = await import(
+          /* webpackChunkName: "markdown-it-replace-link" */ 'markdown-it-replace-link'
+        );
+        return replaceLinkPlugin.default;
+      },
+    });
+  },
+};
+
+// markdown-it-replace-link
+
+export default [core, diagrams, footnote, deflist, replacelink];

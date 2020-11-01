@@ -3,6 +3,8 @@ import { IMarkdownIt } from './tokens';
 
 import { CodeMirrorEditor, Mode } from '@jupyterlab/codemirror';
 
+import { RenderedMarkdown } from './widgets';
+
 export class MarkdownItManager implements IMarkdownIt {
   private _pluginProviders: Map<
     string,
@@ -23,9 +25,12 @@ export class MarkdownItManager implements IMarkdownIt {
     this._pluginProviders.delete(name);
   }
 
-  async getMarkdownIt(options: MarkdownIt.Options = {}): Promise<MarkdownIt> {
+  async getMarkdownIt(
+    widget: RenderedMarkdown,
+    options: MarkdownIt.Options = {}
+  ): Promise<MarkdownIt> {
     let md = new MarkdownIt({
-      ...this.baseMarkdownItOptions,
+      ...this.getOptions(widget),
       ...options,
     });
 
@@ -39,6 +44,25 @@ export class MarkdownItManager implements IMarkdownIt {
     }
 
     return md;
+  }
+
+  async getOptions(widget: RenderedMarkdown) {
+    let allOptions = this.baseMarkdownItOptions;
+
+    for (const [name, plugin] of this._pluginProviders.entries()) {
+      if (plugin.options == null) {
+        continue;
+      }
+      try {
+        allOptions = { ...allOptions, ...(await plugin.options(widget)) };
+      } catch (err) {
+        console.warn(
+          `Failed to get options from markdown-it plugin ${name}`,
+          err
+        );
+      }
+    }
+    return allOptions;
   }
 
   get baseMarkdownItOptions() {

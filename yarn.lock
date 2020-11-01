@@ -1306,6 +1306,11 @@ markdown-it-footnote@^3.0.2:
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.2.tgz#1575ee7a093648d4e096aa33386b058d92ac8bc1"
   integrity sha512-JVW6fCmZWjvMdDQSbOT3nnOQtd9iAXmw7hTSh26+v42BnvXeVyGMDBm5b/EZocMed2MbCAHiTX632vY0FyGB8A==
 
+markdown-it-replace-link@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-replace-link/-/markdown-it-replace-link-1.1.0.tgz#cab2343eb27928db1c836e10cd518aaf60a0bd50"
+  integrity sha512-P+4D/Z16utgQVjMumA5W3lMbxWYk4iwg1Fk59wShFm7MRgzbjJm++tvI18LdYwiG8CKNA1TFWvHcbtehvMuViA==
+
 markdown-it@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-10.0.0.tgz#abfc64f141b1722d663402044e43927f1f50a8dc"
