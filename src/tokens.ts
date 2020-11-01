@@ -40,9 +40,9 @@ export namespace IMarkdownIt {
      */
     id: string;
     /**
-     * A lazy provider of the plugin function
+     * A lazy provider of the plugin function and plugin options
      */
-    plugin(): Promise<IPlugin>;
+    plugin(): Promise<[IPlugin, any]>;
     /**
      * Additional options to pass to the MarkdownIt constructor
      */

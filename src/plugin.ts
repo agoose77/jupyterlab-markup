@@ -36,7 +36,7 @@ const diagrams: JupyterFrontEndPlugin<void> = {
           /* webpackChunkName: "markdown-it-diagrams" */ 'markdown-it-diagrams'
         );
         await awaitRenderAvailable();
-        return diagramPlugin;
+        return [diagramPlugin, {}];
       },
     });
   },
@@ -56,7 +56,7 @@ const footnote: JupyterFrontEndPlugin<void> = {
         const footnotePlugin = await import(
           /* webpackChunkName: "markdown-it-footnote" */ 'markdown-it-footnote'
         );
-        return footnotePlugin.default;
+        return [footnotePlugin.default, {}];
       },
     });
   },
@@ -76,7 +76,7 @@ const deflist: JupyterFrontEndPlugin<void> = {
         const deflistPlugin = await import(
           /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
         );
-        return deflistPlugin.default;
+        return [deflistPlugin.default, {}];
       },
     });
   },
@@ -104,10 +104,30 @@ const replacelink: JupyterFrontEndPlugin<void> = {
         const replaceLinkPlugin = await import(
           /* webpackChunkName: "markdown-it-replace-link" */ 'markdown-it-replace-link'
         );
-        return replaceLinkPlugin.default;
+        return [replaceLinkPlugin.default, {}];
       },
     });
   },
 };
 
-export default [core, diagrams, footnote, deflist, replacelink];
+/**
+ * Adds anchors to headers
+ */
+const anchor: JupyterFrontEndPlugin<void> = {
+  id: `${PLUGIN_ID}:markdown-it-anchor`,
+  autoStart: true,
+  requires: [IMarkdownIt],
+  activate: (app, markdownIt: IMarkdownIt) => {
+    markdownIt.addPluginProvider({
+      id: 'markdown-it-anchor',
+      plugin: async () => {
+        const replaceLinkPlugin = await import(
+          /* webpackChunkName: "markdown-it-anchor" */ 'markdown-it-anchor'
+        );
+        return [replaceLinkPlugin.default, {}];
+      },
+    });
+  },
+};
+
+export default [core, anchor, diagrams, footnote, deflist, replacelink];

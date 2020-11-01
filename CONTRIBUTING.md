@@ -36,8 +36,8 @@ import {
 
 import { IMarkdownIt } from '@agoose77/jupyterlab-markup';
 
-const plugin: JupyterFrontEndPlugin<void> = {
-  id: `${PLUGIN_ID}:deflist`,
+const deflist: JupyterFrontEndPlugin<void> = {
+  id: `${PLUGIN_ID}:markdown-it-deflist`,
   autoStart: true,
   requires: [IMarkdownIt],
   activate: (app: JupyterFrontEnd, markdownIt: IMarkdownIt) => {
@@ -47,13 +47,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
         const deflistPlugin = await import(
           /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
         );
-        return deflistPlugin.default;
+        return [deflistPlugin.default, {}];
       },
     });
   },
 };
 
-export default [plugin];
+export default [deflist];
 ```
 
 [official cookiecutter]: https://github.com/jupyterlab/extension-cookiecutter-ts
