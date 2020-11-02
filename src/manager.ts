@@ -32,10 +32,12 @@ export class MarkdownItManager implements IMarkdownIt {
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
   ): Promise<MarkdownIt> {
-    let md = new MarkdownIt({
-      ...this.getOptions(widget),
+    const allOptions = {
+      ...(await this.getOptions(widget)),
       ...options,
-    });
+    };
+
+    let md = new MarkdownIt('default', allOptions);
 
     for (const [name, provider] of this._pluginProviders.entries()) {
       try {
@@ -103,7 +105,7 @@ export class MarkdownItManager implements IMarkdownIt {
         console.warn(`Failed to highlight ${lang} code`, err);
       }
     } catch (err) {
-      console.log(`No CodeMirror mode: ${lang}`);
+      console.warn(`No CodeMirror mode: ${lang}`);
       console.warn(`Require CodeMirror mode error: ${err}`);
     }
     return '';

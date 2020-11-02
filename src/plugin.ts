@@ -4,6 +4,7 @@ import { JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { IMarkdownIt, PLUGIN_ID } from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
+import { PathExt } from '@jupyterlab/coreutils';
 
 /**
  * The main plugin which overloads default markdown rendering by `marked`
@@ -93,10 +94,17 @@ const replacelink: JupyterFrontEndPlugin<void> = {
     markdownIt.addPluginProvider({
       id: 'markdown-it-replace-link',
       options: async (widget) => {
-        const { isLocal, resolveUrl } = widget.resolver;
+        const { resolver } = widget;
         return {
           replaceLink: function (link: string, env: any) {
-            return isLocal(link) ? resolveUrl(link) : link;
+            // hacky, but this can't be a promise
+            if (!resolver.isLocal(link)) {
+              return link;
+            }
+            const cwd = encodeURI(
+              PathExt.dirname((resolver as any)._parent.path)
+            );
+            return PathExt.resolve(cwd, link);
           },
         };
       },
@@ -121,11 +129,11 @@ const anchor: JupyterFrontEndPlugin<void> = {
     markdownIt.addPluginProvider({
       id: 'markdown-it-anchor',
       plugin: async () => {
-        const replaceLinkPlugin = await import(
+        const anchorPlugin = await import(
           /* webpackChunkName: "markdown-it-anchor" */ 'markdown-it-anchor'
         );
         return [
-          replaceLinkPlugin.default,
+          anchorPlugin.default,
           {
             permalink: true,
             permalinkClass: 'jp-InternalAnchorLink',
@@ -136,4 +144,33 @@ const anchor: JupyterFrontEndPlugin<void> = {
   },
 };
 
-export default [core, anchor, diagrams, footnote, deflist, replacelink];
+/**
+ * Adds github-flavored task lists
+ */
+const tasklist: JupyterFrontEndPlugin<void> = {
+  id: `${PLUGIN_ID}:markdown-it-task-lists`,
+  autoStart: true,
+  requires: [IMarkdownIt],
+  activate: (app, markdownIt: IMarkdownIt) => {
+    markdownIt.addPluginProvider({
+      id: 'markdown-it-task-lists',
+      plugin: async () => {
+        const tasklistPlugin = await import(
+          /* webpackChunkName: "markdown-it-task-lists" */ 'markdown-it-task-lists'
+        );
+        return [tasklistPlugin.default];
+      },
+    });
+  },
+};
+
+export default [
+  core,
+  // plugins
+  anchor,
+  deflist,
+  diagrams,
+  footnote,
+  replacelink,
+  tasklist,
+];

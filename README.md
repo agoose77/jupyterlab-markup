@@ -2,15 +2,15 @@
 
 Adds additional rendering support to markdown in JupyterLab by using [markdown-it](https://github.com/markdown-it/markdown-it), and the following plugins:
 
+- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor)
+- [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist)
 - [markdown-it-diagrams](https://github.com/agoose77/markdown-it-diagrams)
 - [markdown-it-footnote](https://github.com/markdown-it/markdown-it-footnote)
-- [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist)
 - [markdown-it-replace-link](https://github.com/martinheidegger/markdown-it-replace-link)
-- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor)
-
-![Full example rendering vs markup.](https://i.imgur.com/OL9oGcq.png)
-![svgbob rendering](https://i.imgur.com/RbDioU8.gif)
-![svgbob rendering](https://i.imgur.com/IQSasVZ.gif)
+- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists)
+  ![Full example rendering vs markup.](https://i.imgur.com/OL9oGcq.png)
+  ![svgbob rendering](https://i.imgur.com/RbDioU8.gif)
+  ![svgbob rendering](https://i.imgur.com/IQSasVZ.gif)
 
 ## Prerequisites
 
