@@ -10,6 +10,8 @@ import { MarkdownItSettings } from './settings';
 
 import { BUILTINS } from './builtins';
 
+import '../style/index.css';
+
 /**
  * The main plugin which overloads default markdown rendering by `marked`
  */

@@ -14,7 +14,7 @@
   "license": "BSD-3-Clause",
   "author": "Angus Hollands",
   "files": [
-    "{src,lib,schema}/**/*.{ts,tsx,eot,gif,html,jpg,js,map,json,png,svg,woff2,ttf,css}",
+    "{src,lib,style,schema}/**/*.{ts,tsx,eot,gif,html,jpg,js,map,json,png,svg,woff2,ttf,css}",
     "LICENSE.txt"
   ],
   "main": "lib/index.js",

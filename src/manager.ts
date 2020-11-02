@@ -1,3 +1,5 @@
+import { Signal } from '@lumino/signaling';
+
 import { IRenderMime, markdownRendererFactory } from '@jupyterlab/rendermime';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { CodeMirrorEditor, Mode } from '@jupyterlab/codemirror';
@@ -16,7 +18,13 @@ const ORIGINAL_RENDERER = markdownRendererFactory.createRenderer;
  * An implementation of a source of markdown renderers with markdown-it and plugins
  */
 export class MarkdownItManager implements IMarkdownIt {
+  settingsChanged = new Signal<MarkdownItManager, void>(this);
+
+  /**
+   * A list of plugin ids disabled by user settings
+   */
   protected userDisabledPlugins: string[] = [];
+
   /**
    * Whether to use the markdown-it renderer: if installed, will use unless configured by user
    */
@@ -96,6 +104,9 @@ export class MarkdownItManager implements IMarkdownIt {
       (this.settings?.composite[
         'plugin-options'
       ] as IMarkdownIt.IAllPluginOptions) || {};
+
+    // re-brodcast settings changes
+    this.settingsChanged.emit(void 0);
   }
 
   /**
@@ -103,6 +114,14 @@ export class MarkdownItManager implements IMarkdownIt {
    */
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void {
     this._pluginProviders.set(provider.id, provider);
+  }
+
+  getPluginProvider(id: string) {
+    return this._pluginProviders.get(id);
+  }
+
+  get pluginProviderIds() {
+    return [...this._pluginProviders.keys()];
   }
 
   /**

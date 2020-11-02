@@ -1,0 +1,11 @@
+.jp-MarkdownItSettings table {
+  width: 100%;
+}
+
+.jp-MarkdownItSettings.jp-RenderedHTMLCommon thead th {
+  text-align: center;
+}
+
+.jp-MarkdownItSettings.jp-RenderedHTMLCommon tbody th {
+  text-align: left;
+}

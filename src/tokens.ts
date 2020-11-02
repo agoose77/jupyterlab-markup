@@ -20,10 +20,12 @@ export const IMarkdownIt = new Token<IMarkdownIt>(PACKAGE_NS);
 export interface IMarkdownIt {
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
   removePluginProvider(id: string): void;
+  getPluginProvider(id: string): IMarkdownIt.IPluginProvider | null;
   getMarkdownIt(
     widget: RenderedMarkdown,
     options?: MarkdownIt.Options
   ): Promise<MarkdownIt>;
+  pluginProviderIds: string[];
 }
 
 /**
