@@ -128,6 +128,7 @@ const anchor: JupyterFrontEndPlugin<void> = {
           replaceLinkPlugin.default,
           {
             permalink: true,
+            permalinkClass: 'jp-InternalAnchorLink',
           },
         ];
       },
