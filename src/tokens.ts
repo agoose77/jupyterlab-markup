@@ -27,6 +27,14 @@ export interface IMarkdownIt {
 }
 
 /**
+ * A namespace for lumino command IDs
+ */
+export namespace CommandIDs {
+  export const showSettings = 'markdown-it:show-settings';
+  export const toggleRenderer = 'markdown-it:toggle-renderer';
+}
+
+/**
  * A namespace for plugin-related types and interfaces
  */
 export namespace IMarkdownIt {
