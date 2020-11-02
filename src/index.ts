@@ -1,3 +1,2 @@
-import { IMarkdownIt } from './tokens';
-
-export { IMarkdownIt };
+export { IMarkdownIt, PACKAGE_NS } from './tokens';
+export { simpleMarkdownItPlugin } from './utils';

@@ -23,10 +23,10 @@
     "markdown-it-options": {
       "title": "MarkdownIt options",
       "type": "object",
-      "description": "Advanced. JSON-compatible override options to MarkdownIt."
+      "description": "Advanced. JSON-compatible override options to MarkdownIt. https://markdown-it.github.io/markdown-it/#MarkdownIt.new"
     },
     "plugin-options": {
-      "title": "markdown-it plugin options",
+      "title": "markdown-it plugin options. See individual plugins for options.",
       "type": "object",
       "description": "Advanced. List of positional JSON-compatible options to pass to the named plugin.",
       "default": {},

@@ -3,15 +3,15 @@ import MarkdownIt from 'markdown-it';
 import { RenderedMarkdown } from './widgets';
 
 /**
- * The plugin ID stem for all lab extensions
+ * The ID stem for all plugins
  */
-export const PLUGIN_ID = '@agoose77/jupyterlab-markup';
+export const PACKAGE_NS = '@agoose77/jupyterlab-markup';
 
 /* tslint:disable */
 /**
  * The MarkdownIt manager token.
  */
-export const IMarkdownIt = new Token<IMarkdownIt>(PLUGIN_ID);
+export const IMarkdownIt = new Token<IMarkdownIt>(PACKAGE_NS);
 /* tslint:enable */
 
 /**
@@ -39,6 +39,22 @@ export namespace IMarkdownIt {
      * A unique identifier for the plugin, usually the name of the upstream package
      */
     id: string;
+    /**
+     * A human-readable name for the plugin
+     */
+    title: string;
+    /**
+     * A short description for the plugin
+     */
+    description: string;
+    /**
+     * URLs for learning more about the plugin with human-readable keys
+     */
+    documentationUrls: { [key: string]: string };
+    /**
+     * Short usage examples of any new syntax with human-readable keys
+     */
+    examples?: { [key: string]: string };
     /**
      * A lazy provider of the plugin function and plugin options
      */
