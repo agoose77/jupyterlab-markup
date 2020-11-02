@@ -48,7 +48,7 @@ const deflist: JupyterFrontEndPlugin<void> = {
         const deflistPlugin = await import(
           /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
         );
-        return [deflistPlugin.default, {}];
+        return [deflistPlugin.default];
       },
     });
   },

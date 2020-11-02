@@ -36,7 +36,7 @@ const diagrams: JupyterFrontEndPlugin<void> = {
           /* webpackChunkName: "markdown-it-diagrams" */ 'markdown-it-diagrams'
         );
         await awaitRenderAvailable();
-        return [diagramPlugin, {}];
+        return [diagramPlugin];
       },
     });
   },
@@ -56,7 +56,7 @@ const footnote: JupyterFrontEndPlugin<void> = {
         const footnotePlugin = await import(
           /* webpackChunkName: "markdown-it-footnote" */ 'markdown-it-footnote'
         );
-        return [footnotePlugin.default, {}];
+        return [footnotePlugin.default];
       },
     });
   },
@@ -76,7 +76,7 @@ const deflist: JupyterFrontEndPlugin<void> = {
         const deflistPlugin = await import(
           /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
         );
-        return [deflistPlugin.default, {}];
+        return [deflistPlugin.default];
       },
     });
   },
@@ -104,7 +104,7 @@ const replacelink: JupyterFrontEndPlugin<void> = {
         const replaceLinkPlugin = await import(
           /* webpackChunkName: "markdown-it-replace-link" */ 'markdown-it-replace-link'
         );
-        return [replaceLinkPlugin.default, {}];
+        return [replaceLinkPlugin.default];
       },
     });
   },

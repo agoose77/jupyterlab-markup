@@ -39,8 +39,8 @@ export class MarkdownItManager implements IMarkdownIt {
 
     for (const [name, provider] of this._pluginProviders.entries()) {
       try {
-        const [plugin, options] = await provider.plugin();
-        md = md.use(plugin, options);
+        const [plugin, ...options] = await provider.plugin();
+        md = md.use(plugin, ...options);
       } catch (err) {
         console.warn(`Failed to load/use markdown-it plugin ${name}`, err);
       }

@@ -42,7 +42,7 @@ export namespace IMarkdownIt {
     /**
      * A lazy provider of the plugin function and plugin options
      */
-    plugin(): Promise<[IPlugin, any]>;
+    plugin(): Promise<[IPlugin, ...any]>;
     /**
      * Additional options to pass to the MarkdownIt constructor
      */
