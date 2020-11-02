@@ -1,23 +1,29 @@
-import { markdownRendererFactory } from '@jupyterlab/rendermime';
+import { PathExt } from '@jupyterlab/coreutils';
+
 import { JupyterFrontEndPlugin } from '@jupyterlab/application';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import { IMarkdownIt, PLUGIN_ID } from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
-import { PathExt } from '@jupyterlab/coreutils';
 
 /**
  * The main plugin which overloads default markdown rendering by `marked`
  */
 const core: JupyterFrontEndPlugin<IMarkdownIt> = {
-  id: PLUGIN_ID,
+  id: `${PLUGIN_ID}:core`,
   autoStart: true,
   provides: IMarkdownIt,
-  activate: (app) => {
+  requires: [ISettingRegistry],
+  activate: (app, settings: ISettingRegistry) => {
     const manager = new MarkdownItManager();
+    // set the static manager
     RenderedMarkdown.markdownItManager = manager;
-    markdownRendererFactory.createRenderer = (options) =>
-      new RenderedMarkdown(options);
+    // eventually load settings
+    settings
+      .load(core.id)
+      .then((settings) => (manager.settings = settings))
+      .catch(console.warn);
     return manager;
   },
 };
