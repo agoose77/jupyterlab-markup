@@ -27,35 +27,8 @@ jupyter lab watch    # in another terminal, will continue running
 
 Additional [`markdown-it` plugins][plugins]
 can be added as small labextensions. After getting started with the [official cookiecutter][],
-your `plugin.ts` might look something like:
-
-```ts
-import {
-  JupyterFrontEnd,
-  JupyterFrontEndPlugin,
-} from '@jupyterlab/application';
-
-import { IMarkdownIt } from '@agoose77/jupyterlab-markup';
-
-const deflist: JupyterFrontEndPlugin<void> = {
-  id: `${PLUGIN_ID}:markdown-it-deflist`,
-  autoStart: true,
-  requires: [IMarkdownIt],
-  activate: (app: JupyterFrontEnd, markdownIt: IMarkdownIt) => {
-    markdownIt.addPluginProvider({
-      id: 'markdown-it-deflist',
-      plugin: async () => {
-        const deflistPlugin = await import(
-          /* webpackChunkName: "markdown-it-deflist" */ 'markdown-it-deflist'
-        );
-        return [deflistPlugin.default];
-      },
-    });
-  },
-};
-
-export default [deflist];
-```
+your `plugin.ts` might look something like the the [builtins](./src/builtins/),
+which use the `simpleMarkdownItPlugin` boilerplate [wrapper](./src/utils.ts).
 
 [official cookiecutter]: https://github.com/jupyterlab/extension-cookiecutter-ts
 [plugins]: https://www.npmjs.com/search?q=keywords:markdown-it-plugin
