@@ -32,6 +32,7 @@
   overflow-y: auto;
   padding: var(--jp-content-font-size2);
   padding-left: 0;
+  border-right: solid var(--jp-border-width) var(--jp-border-color2);
 }
 
 .jp-MarkdownItSettings header ul {

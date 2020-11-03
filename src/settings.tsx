@@ -11,6 +11,8 @@ const EXAMPLES_CLASS = 'jp-MarkdownItSettings-Examples';
 const DISABLED_CLASS = 'jp-mu-mod-disabled';
 
 const ID_STEM = 'id-jp-mu';
+const GLOBAL_ID = `${ID_STEM}-global`;
+const PLUGIN_ID = `${ID_STEM}-plugin`;
 
 /**
  * A configuration/documentation UI for markdown-it plugins
@@ -44,16 +46,16 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
         <header>
           <ul>
             <li>
-              <a href={`#${ID_STEM}-global`}>Global</a>
+              <a href={`#${GLOBAL_ID}`}>Global</a>
             </li>
             <li>
-              <a href={`#${ID_STEM}-plugins`}>Plugins</a>
+              <a href={`#${PLUGIN_ID}`}>Markdown-it Plugins</a>
               <ul>{providers.map(this.renderPluginNav, this)}</ul>
             </li>
           </ul>
         </header>
         <article>
-          <section id={`${ID_STEM}-global`}>
+          <section id={GLOBAL_ID}>
             <h3>Global</h3>
             <label>
               <input
@@ -68,7 +70,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
               extensions for any new renderers.
             </blockquote>
           </section>
-          <h3>Extensions</h3>
+          <h3 id={PLUGIN_ID}>Markdown-it Plugins</h3>
           {providers.map(this.renderPluginProvider, this)}
         </article>
       </div>
@@ -85,7 +87,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
 
     return (
       <li key={provider.id} className={navClass}>
-        <a href={`#${ID_STEM}-plugin-${provider.id}`}>{provider.title}</a>
+        <a href={`#${PLUGIN_ID}-${provider.id}`}>{provider.title}</a>
       </li>
     );
   }
@@ -112,7 +114,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     return (
       <section
         key={provider.id}
-        id={`${ID_STEM}-plugin-${provider.id}`}
+        id={`${PLUGIN_ID}-${provider.id}`}
         className={sectionClass}
       >
         <div>
