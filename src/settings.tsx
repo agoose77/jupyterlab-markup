@@ -15,6 +15,12 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     this.addClass(SETTINGS_CLASS);
     this.addClass('jp-RenderedHTMLCommon');
   }
+
+  dispose() {
+    super.dispose();
+    this.model.dispose();
+  }
+
   /**
    * Render the settings form
    */
@@ -56,7 +62,8 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
    * Render a single plugin provider
    */
   protected renderPluginProvider(id: string) {
-    const provider = this.model.manager.getPluginProvider(id);
+    const m = this.model;
+    const provider = m.manager.getPluginProvider(id);
     if (!provider) {
       return (
         <tr key={id}>
@@ -75,11 +82,23 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
         <th>{provider.title}</th>
         <td>{provider.description}</td>
         <td>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            value={id}
+            defaultChecked={m.disabledPlugins.indexOf(id) === -1}
+            onChange={this.onPluginEnabledChanged}
+          />
         </td>
       </tr>
     );
   }
+
+  protected onPluginEnabledChanged = (
+    evt: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value, checked } = evt.currentTarget;
+    this.model.setPluginEnabled(value, checked);
+  };
 }
 
 export namespace MarkdownItSettings {
@@ -88,6 +107,15 @@ export namespace MarkdownItSettings {
    */
   export class Model extends VDomModel {
     _manager: MarkdownItManager;
+    disabledPlugins: string[] = [];
+
+    dispose() {
+      super.dispose();
+      if (this._manager) {
+        this._manager.settingsChanged.disconnect(this.onSettingsChanged, this);
+        this._manager = null;
+      }
+    }
 
     get manager() {
       return this._manager;
@@ -96,8 +124,30 @@ export namespace MarkdownItSettings {
     set manager(manager) {
       this._manager = manager;
       if (manager) {
-        manager.settingsChanged.connect(() => this.stateChanged.emit(void 0));
+        manager.settingsChanged.connect(this.onSettingsChanged, this);
       }
+      this.stateChanged.emit(void 0);
+    }
+
+    setPluginEnabled(id: string, enabled: boolean) {
+      let disabledPlugins = this.disabledPlugins.slice();
+      const idx = disabledPlugins.indexOf(id);
+      if (enabled) {
+        disabledPlugins.splice(idx);
+      } else {
+        disabledPlugins.push(id);
+      }
+      if (disabledPlugins.length) {
+        this.manager.settings.set('disabled-plugins', disabledPlugins);
+      } else {
+        this.manager.settings.remove('disabled-plugins');
+      }
+    }
+
+    onSettingsChanged() {
+      this.disabledPlugins = (this.manager.settings.composite[
+        'disabled-plugins'
+      ] || []) as string[];
       this.stateChanged.emit(void 0);
     }
   }

@@ -32,7 +32,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
 
     // commands
     app.commands.addCommand(CommandIDs.showSettings, {
-      label: 'Markdown Extensions',
+      label: 'Markdown Extensions...',
       execute: (args) => {
         const model = new MarkdownItSettings.Model();
         model.manager = manager;

@@ -6,6 +6,10 @@
   text-align: center;
 }
 
-.jp-MarkdownItSettings.jp-RenderedHTMLCommon tbody th {
+.jp-MarkdownItSettings.jp-RenderedHTMLCommon tbody th,
+.jp-MarkdownItSettings.jp-RenderedHTMLCommon tbody td {
   text-align: left;
+}
+.jp-MarkdownItSettings.jp-RenderedHTMLCommon tbody td:last-child {
+  text-align: center;
 }
