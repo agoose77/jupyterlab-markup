@@ -3,8 +3,13 @@ import { VDomModel, VDomRenderer } from '@jupyterlab/apputils';
 import * as React from 'react';
 
 import { MarkdownItManager } from './manager';
+import { IMarkdownIt } from './tokens';
 
 const SETTINGS_CLASS = 'jp-MarkdownItSettings';
+const DOCS_CLASS = 'jp-MarkdownItSettings-Docs';
+const EXAMPLES_CLASS = 'jp-MarkdownItSettings-Examples';
+
+const ID_STEM = 'id-jp-mu-';
 
 /**
  * A configuration/documentation UI for markdown-it plugins
@@ -25,71 +30,120 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
    * Render the settings form
    */
   protected render() {
-    const manager = this.model?.manager;
+    const m = this.model;
+    const manager = m?.manager;
     if (manager == null) {
       return <div />;
     }
 
-    const { pluginProviderIds } = manager;
+    const { providers } = m;
 
     return (
       <div>
-        <table>
-          <thead>{this.renderHeader()}</thead>
-          <tbody>
-            {pluginProviderIds.map(this.renderPluginProvider, this)}
-          </tbody>
-        </table>
+        <header>
+          <ul>
+            <li>
+              <a href={`#${ID_STEM}-global`}>Global</a>
+            </li>
+            <li>
+              <a href={`#${ID_STEM}-plugins`}>Plugins</a>
+              <ul>{providers.map(this.renderPluginNav, this)}</ul>
+            </li>
+          </ul>
+        </header>
+        <article>
+          <section id={`${ID_STEM}-global`}>
+            <h3>Global</h3>
+            <label>
+              <input
+                type="checkbox"
+                defaultChecked={m.enabled}
+                onChange={this.onEnabledChanged}
+              />
+              Use <code>markdown-it</code>
+            </label>
+            <blockquote>
+              Enable to use the <code>markdown-it</code> Markdown renderer and
+              extensions for any new renderers.
+            </blockquote>
+          </section>
+          <h3>Extensions</h3>
+          {providers.map(this.renderPluginProvider, this)}
+        </article>
       </div>
     );
   }
 
   /**
-   * Render the table header
+   * Render a single plugin provider nav link
    */
-  protected renderHeader() {
+  protected renderPluginNav(provider: IMarkdownIt.IPluginProvider) {
     return (
-      <tr>
-        <th>ID</th>
-        <th>Plugin</th>
-        <th>Description</th>
-        <th>Enabled</th>
-      </tr>
+      <li key={provider.id}>
+        <a href={`#${ID_STEM}-plugin-${provider.id}`}>{provider.title}</a>
+      </li>
     );
   }
 
   /**
-   * Render a single plugin provider
+   * Render a single plugin provider section
    */
-  protected renderPluginProvider(id: string) {
+  protected renderPluginProvider(provider: IMarkdownIt.IPluginProvider) {
     const m = this.model;
-    const provider = m.manager.getPluginProvider(id);
-    if (!provider) {
-      return (
-        <tr key={id}>
-          <th>
-            <code>{id}</code>
-          </th>
-        </tr>
-      );
+
+    const docs = [];
+    const examples = [];
+
+    for (const label in provider.documentationUrls) {
+      docs.push(this.renderDoc(label, provider.documentationUrls[label]));
+    }
+
+    for (const label in provider.examples || {}) {
+      examples.push(this.renderExample(label, provider.examples[label]));
     }
 
     return (
-      <tr key={id}>
-        <th>
-          <code>{id}</code>
-        </th>
-        <th>{provider.title}</th>
-        <td>{provider.description}</td>
-        <td>
-          <input
-            type="checkbox"
-            value={id}
-            defaultChecked={m.disabledPlugins.indexOf(id) === -1}
-            onChange={this.onPluginEnabledChanged}
-          />
-        </td>
-      </tr>
+      <section key={provider.id} id={`${ID_STEM}-plugin-${provider.id}`}>
+        <div>
+          <h4 title={`plugin id: ${provider.id}`}>
+            <label>
+              <input
+                type="checkbox"
+                value={provider.id}
+                defaultChecked={m.disabledPlugins.indexOf(provider.id) === -1}
+                onChange={this.onPluginEnabledChanged}
+              />
+              {provider.title}
+            </label>
+          </h4>
+          <ul className={DOCS_CLASS}>{docs}</ul>
+        </div>
+        <blockquote>{provider.description}</blockquote>
+        <ul className={EXAMPLES_CLASS}>{examples}</ul>
+      </section>
+    );
+  }
+
+  protected renderDoc(label: string, url: string) {
+    return (
+      <li key={url}>
+        <a href={url} target="_blank" rel="nofollow">
+          {label}
+        </a>
+      </li>
+    );
+  }
+
+  protected renderExample(label: string, code: string) {
+    return (
+      <div key={label}>
+        <p>
+          <label>{label}</label>
+        </p>
+        <pre>
+          <code>{code}</code>
+        </pre>
+      </div>
     );
   }
 
@@ -99,6 +153,10 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     const { value, checked } = evt.currentTarget;
     this.model.setPluginEnabled(value, checked);
   };
+
+  protected onEnabledChanged = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    this.model.enabled = evt.currentTarget.checked;
+  };
 }
 
 export namespace MarkdownItSettings {
@@ -107,7 +165,9 @@ export namespace MarkdownItSettings {
    */
   export class Model extends VDomModel {
     _manager: MarkdownItManager;
-    disabledPlugins: string[] = [];
+    _disabledPlugins: string[] = [];
+    _enabled: boolean = true;
+    _providers: IMarkdownIt.IPluginProvider[] = [];
 
     dispose() {
       super.dispose();
@@ -125,12 +185,28 @@ export namespace MarkdownItSettings {
       this._manager = manager;
       if (manager) {
         manager.settingsChanged.connect(this.onSettingsChanged, this);
+        this.onSettingsChanged();
       }
-      this.stateChanged.emit(void 0);
+    }
+
+    get disabledPlugins() {
+      return this._disabledPlugins;
+    }
+
+    get enabled() {
+      return this._enabled;
+    }
+
+    set enabled(enabled) {
+      this._manager.settings.set('enabled', enabled);
+    }
+
+    get providers() {
+      return this._providers;
     }
 
     setPluginEnabled(id: string, enabled: boolean) {
-      let disabledPlugins = this.disabledPlugins.slice();
+      let disabledPlugins = this._disabledPlugins.slice();
       const idx = disabledPlugins.indexOf(id);
       if (enabled) {
         disabledPlugins.splice(idx);
@@ -145,10 +221,29 @@ export namespace MarkdownItSettings {
     }
 
     onSettingsChanged() {
-      this.disabledPlugins = (this.manager.settings.composite[
-        'disabled-plugins'
-      ] || []) as string[];
+      const { composite } = this.manager.settings;
+
+      if (composite != null) {
+        this._disabledPlugins = (composite['disabled-plugins'] ||
+          []) as string[];
+
+        this._enabled = composite['enabled'] as boolean;
+        this._providers = this.manager.pluginProviderIds.map(
+          this.manager.getPluginProvider,
+          this.manager
+        );
+        this._providers.sort(this.sortByTitle);
+        console.log(this._providers);
+      }
+
       this.stateChanged.emit(void 0);
+    }
+
+    sortByTitle(
+      a: IMarkdownIt.IPluginProvider,
+      b: IMarkdownIt.IPluginProvider
+    ) {
+      return a.title.localeCompare(b.title);
     }
   }
 }
