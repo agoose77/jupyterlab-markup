@@ -140,7 +140,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   protected renderDoc(label: string, url: string) {
     return (
       <li key={url}>
-        <a href={url} target="_blank" rel="nofollow">
+        <a href={url} target="_blank" rel="noopener">
           {label}
         </a>
       </li>
