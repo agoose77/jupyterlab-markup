@@ -8,8 +8,9 @@ import { IMarkdownIt } from './tokens';
 const SETTINGS_CLASS = 'jp-MarkdownItSettings';
 const DOCS_CLASS = 'jp-MarkdownItSettings-Docs';
 const EXAMPLES_CLASS = 'jp-MarkdownItSettings-Examples';
+const DISABLED_CLASS = 'jp-mu-mod-disabled';
 
-const ID_STEM = 'id-jp-mu-';
+const ID_STEM = 'id-jp-mu';
 
 /**
  * A configuration/documentation UI for markdown-it plugins
@@ -78,8 +79,12 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
    * Render a single plugin provider nav link
    */
   protected renderPluginNav(provider: IMarkdownIt.IPluginProvider) {
+    const m = this.model;
+    const enabled = m.disabledPlugins.indexOf(provider.id) === -1;
+    const navClass = enabled && m.enabled ? '' : DISABLED_CLASS;
+
     return (
-      <li key={provider.id}>
+      <li key={provider.id} className={navClass}>
         <a href={`#${ID_STEM}-plugin-${provider.id}`}>{provider.title}</a>
       </li>
     );
@@ -90,6 +95,8 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
    */
   protected renderPluginProvider(provider: IMarkdownIt.IPluginProvider) {
     const m = this.model;
+    const enabled = m.disabledPlugins.indexOf(provider.id) === -1;
+    const sectionClass = enabled && m.enabled ? '' : DISABLED_CLASS;
 
     const docs = [];
     const examples = [];
@@ -103,14 +110,18 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     }
 
     return (
-      <section key={provider.id} id={`${ID_STEM}-plugin-${provider.id}`}>
+      <section
+        key={provider.id}
+        id={`${ID_STEM}-plugin-${provider.id}`}
+        className={sectionClass}
+      >
         <div>
           <h4 title={`plugin id: ${provider.id}`}>
             <label>
               <input
                 type="checkbox"
                 value={provider.id}
-                defaultChecked={m.disabledPlugins.indexOf(provider.id) === -1}
+                defaultChecked={enabled}
                 onChange={this.onPluginEnabledChanged}
               />
               {provider.title}
@@ -233,7 +244,6 @@ export namespace MarkdownItSettings {
           this.manager
         );
         this._providers.sort(this.sortByTitle);
-        console.log(this._providers);
       }
 
       this.stateChanged.emit(void 0);

@@ -6,19 +6,32 @@
   margin: 0;
 }
 
-.jp-MarkdownItSettings div {
+.jp-MarkdownItSettings h3 {
+  margin-top: 0 !important;
+}
+
+.jp-mu-mod-disabled {
+  opacity: 0.5;
+}
+
+.jp-MarkdownItSettings input[type='checkbox'] {
+  margin-right: var(--jp-content-font-size2);
+}
+
+.jp-MarkdownItSettings > div {
   display: flex;
   flex-direction: row;
   flex: 1;
+  margin: 0 !important;
 }
 
 .jp-MarkdownItSettings header {
   flex: 0;
   min-width: fit-content;
   white-space: nowrap;
-  padding-right: var(--jp-content-font-size3);
   overflow-y: auto;
-  padding: var(--jp-content-font-size3);
+  padding: var(--jp-content-font-size2);
+  padding-left: 0;
 }
 
 .jp-MarkdownItSettings header ul {
@@ -30,21 +43,23 @@
 .jp-MarkdownItSettings article {
   flex: 1;
   overflow-y: auto;
-  padding: var(--jp-content-font-size3);
+  padding: var(--jp-content-font-size2);
 }
 
-.jp-MarkdownItSettings > div {
+.jp-MarkdownItSettings section > div {
   display: flex;
   flex-direction: row;
   border-bottom: solid var(--jp-border-width) var(--jp-border-color2);
 }
 
-.jp-MarkdownItSettings h4 {
+.jp-MarkdownItSettings h4:first-child {
   flex: 1;
   font-size: var(--jp-ui-font-size0);
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
+  margin: 0;
+  padding: 0;
 }
 
 .jp-MarkdownItSettings h4 label {
@@ -56,13 +71,13 @@
   display: flex;
   flex-direction: row;
   list-style: none;
-  padding: 0;
+  padding: 0 !important;
   margin: 0;
 }
 
 .jp-MarkdownItSettings-Docs li {
   flex: 1;
   white-space: nowrap;
-  padding-left: var(--jp-content-font-size3);
+  padding-left: var(--jp-content-font-size2);
   list-style: none;
 }
