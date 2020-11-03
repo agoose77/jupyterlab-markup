@@ -1,3 +1,5 @@
+import { Signal } from '@lumino/signaling';
+
 import { VDomModel, VDomRenderer } from '@jupyterlab/apputils';
 
 import * as React from 'react';
@@ -35,6 +37,11 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   protected render() {
     const m = this.model;
     const manager = m?.manager;
+    const advancedLink = (
+      <a href="#" onClick={this.onAdvancedClicked}>
+        Open in Advanced Settings...
+      </a>
+    );
     if (manager == null) {
       return <div />;
     }
@@ -52,6 +59,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
               <a href={`#${PLUGIN_ID}`}>Markdown-it Plugins</a>
               <ul>{providers.map(this.renderPluginNav, this)}</ul>
             </li>
+            <li>{advancedLink}</li>
           </ul>
         </header>
         <article>
@@ -71,6 +79,10 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
             </blockquote>
           </section>
           <h3 id={PLUGIN_ID}>Markdown-it Plugins</h3>
+          <blockquote>
+            Extensions can be individually enabled or disabled with the
+            checkboxes below. See {advancedLink} for more fine-grained control.
+          </blockquote>
           {providers.map(this.renderPluginProvider, this)}
         </article>
       </div>
@@ -170,6 +182,10 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   protected onEnabledChanged = (evt: React.ChangeEvent<HTMLInputElement>) => {
     this.model.enabled = evt.currentTarget.checked;
   };
+
+  onAdvancedClicked = () => {
+    this.model.advancedRequested.emit(void 0);
+  };
 }
 
 export namespace MarkdownItSettings {
@@ -177,6 +193,7 @@ export namespace MarkdownItSettings {
    * A model for managing markdown-it plugin settings
    */
   export class Model extends VDomModel {
+    advancedRequested = new Signal<Model, void>(this);
     _manager: MarkdownItManager;
     _disabledPlugins: string[] = [];
     _enabled: boolean = true;
