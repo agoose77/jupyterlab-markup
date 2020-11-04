@@ -1,5 +1,7 @@
 # jupyterlab-markup
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup/master?urlpath=lab%2Ftree%2Findex.ipynb)
+
 Adds additional rendering support to markdown in JupyterLab by using
 [markdown-it](https://github.com/markdown-it/markdown-it), and the following
 plugins:
