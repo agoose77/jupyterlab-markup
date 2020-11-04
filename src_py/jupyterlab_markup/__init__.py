@@ -1,26 +1,19 @@
+""" Server companion of jupyterlab-markup
+
+    For now, just ensures .wasm files can be served correctly on older
+    pythons/notebook server, but will eventually handle:
+    - labextension assets
+    - nbconvert processors
+    - test utilities
+"""
 import mimetypes
 
 __version__ = "0.2.1"
 
 
-# https://www.iana.org/assignments/provisional-standard-media-types/provisional-standard-media-types.xhtml
-WASM_EXT = ".wasm"
-WASM_MIME = "application/wasm"
-
-
 def load_jupyter_server_extension(app):
-    """ ensure tornado serves `.wasm` files with
+    """ Ensure tornado serves `.wasm` files with correct MIME
     """
-    _guess = mimetypes.guess_type
-
-    def guess_type(name, strict=True):
-        if name.endswith(WASM_EXT):
-            return (WASM_MIME, None)
-        return _guess(name, strict)
-
-    mimetypes.guess_type = guess_type
-    app.log.warning(
-        "[jupyterlab_markup] mimetypes patched to guess: %s => %s",
-        WASM_EXT,
-        WASM_MIME
-    )
+    # python >3.7.n (where in is > 0, or something) already has this
+    # as will some future releases of notebook and jupyter_server, but...s
+    mimetypes.add_type("application/wasm", ".wasm")

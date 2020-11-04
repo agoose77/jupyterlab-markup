@@ -1,6 +1,8 @@
 # jupyterlab-markup
 
-Adds additional rendering support to markdown in JupyterLab by using [markdown-it](https://github.com/markdown-it/markdown-it), and the following plugins:
+Adds additional rendering support to markdown in JupyterLab by using
+[markdown-it](https://github.com/markdown-it/markdown-it), and the following
+plugins:
 
 - [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor)
 - [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist)
@@ -19,8 +21,8 @@ Adds additional rendering support to markdown in JupyterLab by using [markdown-i
 
 Most custom markdown extensions not covered by the default `marked`-based
 renderer (e.g. task lists, header anchors) will not work for others who do not
-have this extension installed. Markdown is very lenient, so the no data should
-be _lost_, but it might look strange.
+have this extension installed. Markdown is very lenient, so no data should be
+_lost_, but it might look strange.
 
 ## Installation
 
@@ -46,23 +48,25 @@ jupyter serverextension enable jupyterlab_markup
 
 ## Usage
 
-After installing the extension (and restarting/reloading JupyterLab), all plugins
-will be enabled by default.
+After [installing](#Installation) the extension (and restarting/reloading
+JupyterLab), all plugins will be enabled by default.
 
-All plugins (and `markdown-it` itself) can be disabled via the _Command Palette_ or
-under the [_Settings_ menu](https://jupyterlab.readthedocs.io/en/stable/user/interface.html#menu-bar)
+All plugins (and `markdown-it` itself) can be disabled via the _Command Palette_
+or under the
+[_Settings_ menu](https://jupyterlab.readthedocs.io/en/stable/user/interface.html#menu-bar)
 with _Use Markdown Extensions_. This will not affect existing renderers, so open
 documents will need to be reopened.
 
-Individual plugins can be previewed, enabled/disabled from the palette or menu under
-_Markdown Extension Settings..._. This view also provides links and examples of
-any features added by the extensions.
+Individual plugins can be previewed, enabled/disabled from the palette or menu
+under _Markdown Extension Settings..._. This view also provides links and
+examples of any features added by the extensions.
 
 ### Advanced
 
-A number of settings can be configured through the JupyterLab
-_Advanced Settings Editor_, including plugin and markdownit options. As with the
-above limitations, heavy customization might make your documents look strange.
+A number of settings can be configured through the JupyterLab _Advanced Settings
+Editor_, including plugin and `markdown-it` options. As with the above
+[limitations](#Limitations), heavy customization might make your documents look
+strange.
 
 ## Contributing
 
