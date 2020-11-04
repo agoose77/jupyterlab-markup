@@ -3,7 +3,15 @@ import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { MainAreaWidget, ICommandPalette } from '@jupyterlab/apputils';
 import { markdownIcon, LabIcon } from '@jupyterlab/ui-components';
 
-import { CommandIDs, IMarkdownIt, PACKAGE_NS } from './tokens';
+// optional
+import { IMainMenu } from '@jupyterlab/mainmenu';
+
+import {
+  CommandIDs,
+  IMarkdownIt,
+  PACKAGE_NS,
+  COMMAND_CATEGORY,
+} from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
 import { MarkdownItSettings } from './settings';
@@ -27,7 +35,14 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
   autoStart: true,
   provides: IMarkdownIt,
   requires: [ISettingRegistry, ICommandPalette],
-  activate: (app, settings: ISettingRegistry, palette: ICommandPalette) => {
+  optional: [IMainMenu],
+  activate: (
+    app,
+    settings: ISettingRegistry,
+    palette: ICommandPalette,
+    menu?: IMainMenu
+  ) => {
+    const { commands, shell } = app;
     const manager = new MarkdownItManager();
     // set the static manager
     RenderedMarkdown.markdownItManager = manager;
@@ -40,13 +55,13 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
     let settingsMain: MainAreaWidget;
 
     // commands
-    app.commands.addCommand(CommandIDs.showSettings, {
-      label: 'Markdown Extensions...',
+    commands.addCommand(CommandIDs.showSettings, {
+      label: 'Markdown Extension Settings...',
       execute: (args) => {
         if (settingsMain == null) {
           const model = new MarkdownItSettings.Model();
           model.advancedRequested.connect(() =>
-            app.commands.execute('settingeditor:open')
+            commands.execute('settingeditor:open')
           );
           model.manager = manager;
           const content = new MarkdownItSettings(model);
@@ -55,15 +70,50 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
           settingsMain.title.icon = markupIcon;
           settingsMain.disposed.connect(() => (settingsMain = null));
         }
-        app.shell.add(settingsMain, 'main');
-        app.shell.activateById(settingsMain.id);
+        shell.add(settingsMain, 'main');
+        shell.activateById(settingsMain.id);
+      },
+    });
+
+    // cached enabled setting
+    let enabled = true;
+
+    manager.settingsChanged.connect(() => {
+      const { composite } = manager.settings;
+      if (composite != null) {
+        enabled = !!composite.enabled;
+      }
+    });
+
+    commands.addCommand(CommandIDs.toggleRenderer, {
+      label: (args) => `Use Markdown Extensions`,
+      caption: 'Reopen documents to see changes',
+      isToggled: () => enabled,
+      isEnabled: () => manager.settings != null,
+      execute: async (args) => {
+        manager.enabled = !!(args?.enabled == null ? !enabled : args.enabled);
       },
     });
 
     palette.addItem({
       command: CommandIDs.showSettings,
-      category: 'Markdown',
+      category: COMMAND_CATEGORY,
     });
+
+    palette.addItem({
+      command: CommandIDs.toggleRenderer,
+      category: COMMAND_CATEGORY,
+    });
+
+    if (menu) {
+      menu.settingsMenu.addGroup(
+        [
+          { command: CommandIDs.toggleRenderer },
+          { command: CommandIDs.showSettings },
+        ],
+        100
+      );
+    }
 
     return manager;
   },

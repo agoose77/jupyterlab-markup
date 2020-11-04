@@ -61,6 +61,7 @@
   text-transform: uppercase;
   margin: 0;
   padding: 0;
+  white-space: nowrap;
 }
 
 .jp-MarkdownItSettings h4 label {
@@ -74,6 +75,7 @@
   list-style: none;
   padding: 0 !important;
   margin: 0;
+  flex-wrap: wrap;
 }
 
 .jp-MarkdownItSettings-Docs li {

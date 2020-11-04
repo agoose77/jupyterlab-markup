@@ -27,8 +27,8 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   }
 
   dispose() {
+    this.model?.dispose();
     super.dispose();
-    this.model.dispose();
   }
 
   /**
@@ -163,7 +163,9 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     return (
       <div key={label}>
         <p>
-          <label>{label}</label>
+          <label>
+            <em>{label}</em>
+          </label>
         </p>
         <pre>
           <code>{code}</code>

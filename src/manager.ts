@@ -58,15 +58,6 @@ export class MarkdownItManager implements IMarkdownIt {
   }
 
   /**
-   * Create a new renderer, either with markdown-it or the original implementation
-   */
-  protected createRenderer = (options: IRenderMime.IRendererOptions) => {
-    return this.useMarkdownIt
-      ? new RenderedMarkdown(options)
-      : ORIGINAL_RENDERER(options);
-  };
-
-  /**
    * Update the settings, and handle changes.
    */
   set settings(settings) {
@@ -109,6 +100,21 @@ export class MarkdownItManager implements IMarkdownIt {
     this.settingsChanged.emit(void 0);
   }
 
+  get enabled() {
+    const enabled = this.settings?.composite;
+    return !!(enabled == null ? true : enabled);
+  }
+
+  set enabled(enabled) {
+    if (this.settings == null) {
+      console.warn(
+        `Can't set enabled status of markdown extensions without settings`
+      );
+      return;
+    }
+    this.settings.set('enabled', enabled);
+  }
+
   /**
    * Add a provider for a plugin which can be resolved lazily
    */
@@ -130,6 +136,15 @@ export class MarkdownItManager implements IMarkdownIt {
   removePluginProvider(name: string) {
     this._pluginProviders.delete(name);
   }
+
+  /**
+   * Create a new renderer, either with markdown-it or the original implementation
+   */
+  protected createRenderer = (options: IRenderMime.IRendererOptions) => {
+    return this.useMarkdownIt
+      ? new RenderedMarkdown(options)
+      : ORIGINAL_RENDERER(options);
+  };
 
   /**
    * Get a MarkdownIt instance

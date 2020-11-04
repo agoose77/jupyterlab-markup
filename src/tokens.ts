@@ -7,6 +7,11 @@ import { RenderedMarkdown } from './widgets';
  */
 export const PACKAGE_NS = '@agoose77/jupyterlab-markup';
 
+/**
+ * The category for markdown extension commands
+ */
+export const COMMAND_CATEGORY = 'Markdown Extensions';
+
 /* tslint:disable */
 /**
  * The MarkdownIt manager token.

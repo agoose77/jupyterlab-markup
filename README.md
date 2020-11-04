@@ -6,7 +6,6 @@ Adds additional rendering support to markdown in JupyterLab by using [markdown-i
 - [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist)
 - [markdown-it-diagrams](https://github.com/agoose77/markdown-it-diagrams)
 - [markdown-it-footnote](https://github.com/markdown-it/markdown-it-footnote)
-- [markdown-it-replace-link](https://github.com/martinheidegger/markdown-it-replace-link)
 - [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists)
   ![Full example rendering vs markup.](https://i.imgur.com/OL9oGcq.png)
   ![svgbob rendering](https://i.imgur.com/RbDioU8.gif)
@@ -15,6 +14,13 @@ Adds additional rendering support to markdown in JupyterLab by using [markdown-i
 ## Prerequisites
 
 - JupyterLab 2
+
+## Limitations
+
+Most custom markdown extensions not covered by the default `marked`-based
+renderer (e.g. task lists, header anchors) will not work for others who do not
+have this extension installed. Markdown is very lenient, so the no data should
+be _lost_, but it might look strange.
 
 ## Installation
 
@@ -37,6 +43,26 @@ If the serverextension is missing, try...
 ```bash
 jupyter serverextension enable jupyterlab_markup
 ```
+
+## Usage
+
+After installing the extension (and restarting/reloading JupyterLab), all plugins
+will be enabled by default.
+
+All plugins (and `markdown-it` itself) can be disabled via the _Command Palette_ or
+under the [_Settings_ menu](https://jupyterlab.readthedocs.io/en/stable/user/interface.html#menu-bar)
+with _Use Markdown Extensions_. This will not affect existing renderers, so open
+documents will need to be reopened.
+
+Individual plugins can be previewed, enabled/disabled from the palette or menu under
+_Markdown Extension Settings..._. This view also provides links and examples of
+any features added by the extensions.
+
+### Advanced
+
+A number of settings can be configured through the JupyterLab
+_Advanced Settings Editor_, including plugin and markdownit options. As with the
+above limitations, heavy customization might make your documents look strange.
 
 ## Contributing
 
