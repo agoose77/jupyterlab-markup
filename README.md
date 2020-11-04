@@ -1,6 +1,14 @@
 # jupyterlab-markup
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup/master?urlpath=lab%2Ftree%2Findex.ipynb)
+[![npm-badge][]][npm] [![pypi-badge][]][pypi] [![binder-badge][]][binder]
+
+[binder]:
+  https://mybinder.org/v2/gh/agoose77/jupyterlab-markup/master?urlpath=lab%2Ftree%2Findex.ipynb
+[binder-badge]: https://mybinder.org/badge_logo.svg
+[npm-badge]: https://img.shields.io/npm/v/@agoose77/jupyterlab-markup
+[npm]: https://www.npmjs.com/package/@agoose77/jupyterlab-markup
+[pypi-badge]: https://img.shields.io/pypi/v/jupyterlab_markup
+[pypi]: https://pypi.org/project/jupyterlab_markup
 
 Adds additional rendering support to markdown in JupyterLab by using
 [markdown-it](https://github.com/markdown-it/markdown-it), and the following
