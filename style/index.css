@@ -75,7 +75,6 @@
   list-style: none;
   padding: 0 !important;
   margin: 0;
-  flex-wrap: wrap;
 }
 
 .jp-MarkdownItSettings-Docs li {
