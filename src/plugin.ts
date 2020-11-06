@@ -90,7 +90,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
       caption: 'Reopen documents to see changes',
       isToggled: () => enabled,
       isEnabled: () => manager.settings != null,
-      execute: async (args) => {
+      execute: (args) => {
         manager.enabled = !!(args?.enabled == null ? !enabled : args.enabled);
       },
     });
