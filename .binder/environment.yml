@@ -1,0 +1,10 @@
+name: jupyterlab-markup
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - jupyterlab >=2,<3
+  - nodejs >=14,<15
+  - python >=3.7,<3.8

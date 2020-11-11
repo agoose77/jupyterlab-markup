@@ -1,0 +1,39 @@
+{
+  "jupyter.lab.setting-icon": "jupyterlab-markup:core",
+  "jupyter.lab.setting-icon-label": "Markdown Extensions",
+  "title": "Markdown Extensions",
+  "description": "Markdown extension settings",
+  "type": "object",
+  "properties": {
+    "enabled": {
+      "title": "Enable markdown-it Markdown renderer",
+      "type": "boolean",
+      "default": true,
+      "description": "Use markdown-it for new renderers. Re-open existing documents to see changes."
+    },
+    "disabled-plugins": {
+      "title": "Disabled plugins",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "markdown-it plugins to disable for new renderers. Re-open existing documents to see changes.",
+      "default": []
+    },
+    "markdown-it-options": {
+      "title": "MarkdownIt options",
+      "type": "object",
+      "description": "Advanced. JSON-compatible override options to MarkdownIt. https://markdown-it.github.io/markdown-it/#MarkdownIt.new",
+      "default": {}
+    },
+    "plugin-options": {
+      "title": "markdown-it plugin options. See individual plugins for options.",
+      "type": "object",
+      "description": "Advanced. List of positional JSON-compatible options to pass to the named plugin.",
+      "default": {},
+      "additionalProperties": {
+        "type": "array"
+      }
+    }
+  }
+}
