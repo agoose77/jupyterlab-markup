@@ -1,107 +1,83 @@
-# jupyterlab-markup
+# jupyterlab_markup
 
-[![npm-badge][]][npm] [![pypi-badge][]][pypi] [![binder-badge][]][binder]
+![Github Actions Status](https://github.com/agoose77/jupyterlab-markup.git/workflows/Build/badge.svg)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup.git/master?urlpath=lab)
 
-[binder]:
-  https://mybinder.org/v2/gh/agoose77/jupyterlab-markup/master?urlpath=lab%2Ftree%2Findex.ipynb
-[binder-badge]: https://mybinder.org/badge_logo.svg
-[npm-badge]: https://img.shields.io/npm/v/@agoose77/jupyterlab-markup
-[npm]: https://www.npmjs.com/package/@agoose77/jupyterlab-markup
-[pypi-badge]: https://img.shields.io/pypi/v/jupyterlab_markup
-[pypi]: https://pypi.org/project/jupyterlab_markup
+Additional markdown rendering support in markdown.
 
-Adds additional rendering support to markdown in JupyterLab by using
-[markdown-it](https://github.com/markdown-it/markdown-it), and the following
-plugins:
 
-- [markdown-it-anchor](https://github.com/valeriangalliat/markdown-it-anchor)
-- [markdown-it-deflist](https://github.com/markdown-it/markdown-it-deflist)
-- [markdown-it-diagrams](https://github.com/agoose77/markdown-it-diagrams)
-- [markdown-it-footnote](https://github.com/markdown-it/markdown-it-footnote)
-- [markdown-it-task-lists](https://github.com/revin/markdown-it-task-lists)
-  ![Full example rendering vs markup.](https://i.imgur.com/OL9oGcq.png)
-  ![svgbob rendering](https://i.imgur.com/RbDioU8.gif)
-  ![svgbob rendering](https://i.imgur.com/IQSasVZ.gif)
+This extension is composed of a Python package named `jupyterlab_markup`
+for the server extension and a NPM package named `@agoose77/jupyterlab-markup`
+for the frontend extension.
 
-## Prerequisites
 
-- JupyterLab 2
+## Requirements
 
-## Limitations
+* JupyterLab >= 3.0
 
-Most custom markdown extensions not covered by the default `marked`-based
-renderer (e.g. task lists, header anchors) will not work for others who do not
-have this extension installed. Markdown is very lenient, so no data should be
-_lost_, but it might look strange.
-
-## Installation
-
-Install extension:
+## Install
 
 ```bash
 pip install jupyterlab_markup
-jupyter labextension install @agoose77/jupyterlab-markup
 ```
 
-Ensure the extensions are enabled:
+
+## Troubleshoot
+
+If you are seeing the frontend extension, but it is not working, check
+that the server extension is enabled:
 
 ```bash
-jupyter labextension list      # should contain @goose/jupyterlab-markup
-jupyter serverextension list   # should contain jupyterlab_markup
+jupyter server extension list
 ```
 
-If the serverextension is missing, try...
+If the server extension is installed and enabled, but you are not seeing
+the frontend extension, check the frontend extension is installed:
 
 ```bash
-jupyter serverextension enable jupyterlab_markup
+jupyter labextension list
 ```
 
-## Usage
-
-After [installing](#Installation) the extension (and restarting/reloading
-JupyterLab), all plugins will be enabled by default.
-
-All plugins (and `markdown-it` itself) can be disabled via the _Command Palette_
-or under the
-[_Settings_ menu](https://jupyterlab.readthedocs.io/en/stable/user/interface.html#menu-bar)
-with _Use Markdown Extensions_. This will not affect existing renderers, so open
-documents will need to be reopened.
-
-Individual plugins can be previewed, enabled/disabled from the palette or menu
-under _Markdown Extension Settings..._. This view also provides links and
-examples of any features added by the extensions.
-
-### Advanced
-
-A number of settings can be configured through the JupyterLab _Advanced Settings
-Editor_, including plugin and `markdown-it` options. As with the above
-[limitations](#Limitations), heavy customization might make your documents look
-strange.
 
 ## Contributing
 
-Please see the [contributor guide](./CONTRIBUTING.md)!
+### Development install
 
-## Examples
+Note: You will need NodeJS to build the extension package.
 
-### mermaid
+The `jlpm` command is JupyterLab's pinned version of
+[yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
+`yarn` or `npm` in lieu of `jlpm` below.
 
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+```bash
+# Clone the repo to your local environment
+# Change directory to the jupyterlab_markup directory
+# Install package in development mode
+pip install -e .
+# Link your development version of the extension with JupyterLab
+jupyter labextension develop . --overwrite
+# Rebuild extension Typescript source after making changes
+jlpm run build
 ```
 
-### svgbob
+You can watch the source directory and run JupyterLab at the same time in different terminals to watch for changes in the extension's source and automatically rebuild the extension.
 
-```bob
-     .---.
-    /-o-/--
- .-/ / /->
-( *  \/
- '-.  \
-    \ /
-     '
+```bash
+# Watch the source directory in one terminal, automatically rebuilding when needed
+jlpm run watch
+# Run JupyterLab in another terminal
+jupyter lab
+```
+
+With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).
+
+By default, the `jlpm run build` command generates the source maps for this extension to make it easier to debug using the browser dev tools. To also generate source maps for the JupyterLab core extensions, you can run the following command:
+
+```bash
+jupyter lab build --minimize=False
+```
+
+### Uninstall
+
+```bash
+pip uninstall jupyterlab_markup
 ```

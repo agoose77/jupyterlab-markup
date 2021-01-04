@@ -4,7 +4,7 @@ import { IRenderMime, markdownRendererFactory } from '@jupyterlab/rendermime';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { CodeMirrorEditor, Mode } from '@jupyterlab/codemirror';
 
-import * as MarkdownIt from 'markdown-it';
+import MarkdownIt from 'markdown-it';
 
 import { RenderedMarkdown } from './widgets';
 import { IMarkdownIt } from './tokens';

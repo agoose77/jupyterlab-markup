@@ -1,0 +1,4 @@
+/* Handle overflow in settings editor */
+.jp-MarkdownItSettings {
+    overflow: auto;
+}
