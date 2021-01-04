@@ -7,11 +7,30 @@
     - test utilities
 """
 import mimetypes
+import json
+import os.path as osp
 
-__version__ = "0.2.1"
+from ._version import __version__
+
+HERE = osp.abspath(osp.dirname(__file__))
+
+with open(osp.join(HERE, 'labextension', 'package.json')) as fid:
+    data = json.load(fid)
+
+def _jupyter_labextension_paths():
+    return [{
+        'src': 'labextension',
+        'dest': data['name']
+    }]
 
 
-def load_jupyter_server_extension(app):
+def _jupyter_server_extension_points():
+    return [{
+        "module": "jupyterlab_markup"
+    }]
+
+
+def _load_jupyter_server_extension(app):
     """ Ensure tornado serves `.wasm` files with correct MIME
     """
     # python >3.7.n (where in is > 0, or something) already has this

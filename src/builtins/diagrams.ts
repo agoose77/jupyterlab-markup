@@ -34,10 +34,9 @@ export const diagrams = simpleMarkdownItPlugin(PACKAGE_NS, {
           `,
   },
   plugin: async () => {
-    const { diagramPlugin, awaitRenderAvailable } = await import(
+    const { loadPluginFactory } = await import(
       /* webpackChunkName: "markdown-it-diagrams" */ 'markdown-it-diagrams'
     );
-    await awaitRenderAvailable();
-    return [diagramPlugin];
+    return [await loadPluginFactory()];
   },
 });
