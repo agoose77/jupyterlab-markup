@@ -8,7 +8,7 @@ export const anchor = simpleMarkdownItPlugin(PACKAGE_NS, {
   title: 'Heading Anchors',
   description: 'Create clickable links for header elements',
   documentationUrls: {
-    Plugin: 'https://github.com/valeriangalliat/markdown-it-anchor',
+    Plugin: 'https://github.com/valeriangalliat/markdown-it-anchor'
   },
   plugin: async () => {
     const anchorPlugin = await import(
@@ -20,8 +20,8 @@ export const anchor = simpleMarkdownItPlugin(PACKAGE_NS, {
         // match JupyterLab default behavior
         permalink: true,
         permalinkClass: 'jp-InternalAnchorLink',
-        slugify: (title: string) => title.replace(/ /g, '-'),
-      },
+        slugify: (title: string) => title.replace(/ /g, '-')
+      }
     ];
-  },
+  }
 });

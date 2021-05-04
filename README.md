@@ -4,22 +4,19 @@
 
 Additional markdown rendering support in markdown.
 
-
 This extension is composed of a Python package named `jupyterlab_markup`
 for the server extension and a NPM package named `@agoose77/jupyterlab-markup`
 for the frontend extension.
 
-
 ## Requirements
 
-* JupyterLab >= 3.0
+- JupyterLab >= 3.0
 
 ## Install
 
 ```bash
 pip install jupyterlab_markup
 ```
-
 
 ## Troubleshoot
 
@@ -36,7 +33,6 @@ the frontend extension, check the frontend extension is installed:
 ```bash
 jupyter labextension list
 ```
-
 
 ## Contributing
 

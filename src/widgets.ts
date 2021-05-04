@@ -46,7 +46,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
       linkHandler: this.linkHandler,
       shouldTypeset: this.isAttached,
       md: this.md,
-      latexTypesetter: this.latexTypesetter,
+      latexTypesetter: this.latexTypesetter
     });
   }
 

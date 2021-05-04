@@ -8,7 +8,7 @@ export const footnote = simpleMarkdownItPlugin(PACKAGE_NS, {
   title: 'Footnotes',
   description: 'Create links notes that appear after the current paragraph',
   documentationUrls: {
-    Plugin: 'https://github.com/markdown-it/markdown-it-footnote',
+    Plugin: 'https://github.com/markdown-it/markdown-it-footnote'
   },
   examples: {
     Simple: `
@@ -20,12 +20,12 @@ Here is a footnote reference,[^1] and another.[^longnote]
 
   Subsequent paragraphs are indented to show that they
 belong to the previous footnote.
-      `,
+      `
   },
   plugin: async () => {
     const footnotePlugin = await import(
       /* webpackChunkName: "markdown-it-footnote" */ 'markdown-it-footnote'
     );
     return [footnotePlugin.default];
-  },
+  }
 });

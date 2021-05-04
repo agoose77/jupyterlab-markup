@@ -10,7 +10,7 @@ export const diagrams = simpleMarkdownItPlugin(PACKAGE_NS, {
   documentationUrls: {
     Plugin: 'https://github.com/agoose77/markdown-it-diagrams',
     MermaidJS: 'https://mermaid-js.github.io/mermaid',
-    svgbob: 'https://github.com/ivanceras/svgbob',
+    svgbob: 'https://github.com/ivanceras/svgbob'
   },
   examples: {
     'Mermaid Flowchart': `
@@ -31,12 +31,12 @@ export const diagrams = simpleMarkdownItPlugin(PACKAGE_NS, {
       \ /
       '
   \`\`\`
-          `,
+          `
   },
   plugin: async () => {
     const { loadPluginFactory } = await import(
       /* webpackChunkName: "markdown-it-diagrams" */ 'markdown-it-diagrams'
     );
     return [await loadPluginFactory()];
-  },
+  }
 });

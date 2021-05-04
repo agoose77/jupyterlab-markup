@@ -33,7 +33,7 @@ export async function renderMarkdown(
   await renderHTML({
     host,
     source: html,
-    ...others,
+    ...others
   });
 }
 
