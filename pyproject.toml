@@ -1,5 +1,5 @@
 [build-system]
-requires = ["jupyter_packaging~=0.9.1", "jupyterlab>=3.0.0,==3.*"]
+requires = ["jupyter_packaging~=0.9.1", "jupyterlab>=3.0.0,==3.*", "wheel"]
 build-backend = "jupyter_packaging.build_api"
 
 [tool.jupyter-packaging.builder]
@@ -15,8 +15,8 @@ ignore = [
     ".github/**",
     "jupyterlab_markup/labextension/**",
     ".eslint*",
-    ".pre-commit-config.yaml",
     ".prettier*",
+    ".pre-commit-config.yaml",
     "CONTRIBUTING.md",
     "yarn.lock"
 ]
