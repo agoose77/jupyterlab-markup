@@ -1,6 +1,6 @@
 {
   "name": "@agoose77/jupyterlab-markup",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Additional markdown rendering support in JupyterLab.",
   "keywords": [
     "jupyter",
