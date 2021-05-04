@@ -1,20 +1,18 @@
-__all__ = ["__version__"]
+__all__ = ["__version__", "LABEXTENSION_VERSION", "LABEXTENSION_NAME"]
+
+import json
+import pathlib
 
 
-def _fetchVersion():
-    import json
-    import os
-
-    HERE = os.path.abspath(os.path.dirname(__file__))
-
-    for d, _, _ in os.walk(HERE):
-        try:
-            with open(os.path.join(d, "package.json")) as f:
-                return json.load(f)["version"]
-        except FileNotFoundError:
-            pass
-
-    raise FileNotFoundError("Could not find package.json under dir {}".format(HERE))
+def _load_package_info():
+    package_json_path = pathlib.Path(__file__).parent / "labextension" / "package.json"
+    with open(package_json_path) as f:
+        return json.load(f)
 
 
-__version__ = _fetchVersion()
+_package_info = _load_package_info()
+
+LABEXTENSION_NAME = _package_info["name"]
+LABEXTENSION_VERSION = _package_info["version"]
+
+__version__ = LABEXTENSION_VERSION

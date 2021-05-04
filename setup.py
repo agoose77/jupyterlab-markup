@@ -11,11 +11,11 @@ import pathlib
 HERE = pathlib.Path.cwd().absolute()
 EXT_SOURCE_PATH = HERE / "jupyterlab_markup" / "labextension"
 EXT_DEST_PATH = (
-        pathlib.PurePath("share")
-        / "jupyter"
-        / "labextensions"
-        / "@agoose77"
-        / "jupyterlab-markup"
+    pathlib.PurePath("share")
+    / "jupyter"
+    / "labextensions"
+    / "@agoose77"
+    / "jupyterlab-markup"
 )
 
 setup(
