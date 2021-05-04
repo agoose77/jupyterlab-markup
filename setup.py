@@ -8,10 +8,21 @@ from setuptools import setup
 import pathlib
 
 # Add labextension target to data_files
-source_path = pathlib.Path("jupyterlab_markup") / "labextension"
-dest_path = pathlib.PurePath("share") / "jupyter" / "labextensions" / "@agoose77" / "jupyterlab-markup"
-data_files_spec = [
-    (dest_path, source_path.absolute(), "**"),
-]
+HERE = pathlib.Path.cwd().absolute()
+EXT_SOURCE_PATH = HERE / "jupyterlab_markup" / "labextension"
+EXT_DEST_PATH = (
+        pathlib.PurePath("share")
+        / "jupyter"
+        / "labextensions"
+        / "@agoose77"
+        / "jupyterlab-markup"
+)
 
-setup(data_files=get_data_files(data_files_spec))
+setup(
+    data_files=get_data_files(
+        [
+            (EXT_DEST_PATH, EXT_SOURCE_PATH, "**"),
+            (EXT_DEST_PATH, HERE, "install.json"),
+        ]
+    )
+)

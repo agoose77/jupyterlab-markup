@@ -12,6 +12,7 @@ build_cmd = "build:prod"
 [tool.check-manifest]
 ignore = [
     ".binder/**",
+    ".github/**",
     "jupyterlab_markup/labextension/**",
     ".eslint*",
     ".pre-commit-config.yaml",
