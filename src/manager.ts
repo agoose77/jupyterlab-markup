@@ -156,7 +156,7 @@ export class MarkdownItManager implements IMarkdownIt {
     const allOptions = {
       ...(await this.getOptions(widget)),
       ...options,
-      ...this.userMarkdownItOptions,
+      ...this.userMarkdownItOptions
     };
 
     let md = new MarkdownIt('default', allOptions);
@@ -222,7 +222,7 @@ export class MarkdownItManager implements IMarkdownIt {
       linkify: true,
       typographer: true,
       langPrefix: `cm-s-${CodeMirrorEditor.defaultConfig.theme} language-`,
-      highlight: this.highlightCode,
+      highlight: this.highlightCode
     };
   }
 

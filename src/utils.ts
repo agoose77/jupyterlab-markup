@@ -15,6 +15,6 @@ export function simpleMarkdownItPlugin(
     requires: [IMarkdownIt],
     activate: (app, markdownIt: IMarkdownIt) => {
       markdownIt.addPluginProvider(provider);
-    },
+    }
   };
 }

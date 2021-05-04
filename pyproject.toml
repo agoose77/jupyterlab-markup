@@ -1,3 +1,22 @@
 [build-system]
-requires = ["jupyter_packaging~=0.7.9", "jupyterlab>=3.0.0rc13,==3.*", "setuptools>=40.8.0", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["jupyter_packaging~=0.9.1", "jupyterlab>=3.0.0,==3.*", "wheel"]
+build-backend = "jupyter_packaging.build_api"
+
+[tool.jupyter-packaging.builder]
+factory = "jupyter_packaging.npm_builder"
+
+[tool.jupyter-packaging.build-args]
+build_cmd = "build:prod"
+
+# setup.cfg or tox.ini
+[tool.check-manifest]
+ignore = [
+    ".binder/**",
+    ".github/**",
+    "jupyterlab_markup/labextension/**",
+    ".eslint*",
+    ".prettier*",
+    ".pre-commit-config.yaml",
+    "CONTRIBUTING.md",
+    "yarn.lock"
+]

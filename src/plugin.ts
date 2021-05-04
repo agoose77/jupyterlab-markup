@@ -10,7 +10,7 @@ import {
   CommandIDs,
   IMarkdownIt,
   PACKAGE_NS,
-  COMMAND_CATEGORY,
+  COMMAND_CATEGORY
 } from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
@@ -24,7 +24,7 @@ const ICON_ID = `jupyterlab-markup:core`;
 
 const markupIcon = new LabIcon({
   name: ICON_ID,
-  svgstr: markdownIcon.svgstr.replace('jp-icon-contrast0', 'jp-icon-contrast1'),
+  svgstr: markdownIcon.svgstr.replace('jp-icon-contrast0', 'jp-icon-contrast1')
 });
 
 /**
@@ -49,7 +49,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
     // eventually load settings
     settings
       .load(core.id)
-      .then((settings) => (manager.settings = settings))
+      .then(settings => (manager.settings = settings))
       .catch(console.warn);
 
     let settingsMain: MainAreaWidget;
@@ -57,7 +57,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
     // commands
     commands.addCommand(CommandIDs.showSettings, {
       label: 'Markdown Extension Settings...',
-      execute: (args) => {
+      execute: args => {
         if (settingsMain == null) {
           const model = new MarkdownItSettings.Model();
           model.advancedRequested.connect(() =>
@@ -72,7 +72,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
         }
         shell.add(settingsMain, 'main');
         shell.activateById(settingsMain.id);
-      },
+      }
     });
 
     // cached enabled setting
@@ -86,37 +86,37 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
     });
 
     commands.addCommand(CommandIDs.toggleRenderer, {
-      label: (args) => `Use Markdown Extensions`,
+      label: args => `Use Markdown Extensions`,
       caption: 'Reopen documents to see changes',
       isToggled: () => enabled,
       isEnabled: () => manager.settings != null,
-      execute: (args) => {
+      execute: args => {
         manager.enabled = !!(args?.enabled == null ? !enabled : args.enabled);
-      },
+      }
     });
 
     palette.addItem({
       command: CommandIDs.showSettings,
-      category: COMMAND_CATEGORY,
+      category: COMMAND_CATEGORY
     });
 
     palette.addItem({
       command: CommandIDs.toggleRenderer,
-      category: COMMAND_CATEGORY,
+      category: COMMAND_CATEGORY
     });
 
     if (menu) {
       menu.settingsMenu.addGroup(
         [
           { command: CommandIDs.toggleRenderer },
-          { command: CommandIDs.showSettings },
+          { command: CommandIDs.showSettings }
         ],
         100
       );
     }
 
     return manager;
-  },
+  }
 };
 
 export default [core, ...BUILTINS];
