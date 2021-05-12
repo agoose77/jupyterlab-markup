@@ -1,6 +1,6 @@
 # jupyterlab_markup
 
-[![CI](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml/badge.svg)](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup.git/master?urlpath=lab)
+[![CI](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml/badge.svg)](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup.git/main?urlpath=lab)
 
 Additional markdown rendering support in markdown.
 
