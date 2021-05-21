@@ -1,6 +1,12 @@
 # jupyterlab_markup
+[![pypi-badge][]][pypi] [![binder-badge][]][binder] [![ci-badge][]][ci]
 
-[![CI](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml/badge.svg)](https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml)[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/agoose77/jupyterlab-markup.git/main?urlpath=lab)
+[binder-badge]: https://mybinder.org/badge_logo.svg
+[binder]: https://mybinder.org/v2/gh/agoose77/jupyterlab-markup.git/main?urlpath=lab
+[pypi-badge]: https://img.shields.io/pypi/v/jupyterlab-markup
+[pypi]: https://pypi.org/project/jupyterlab-markup
+[ci-badge]: https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml/badge.svg
+[ci]: https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml
 
 Additional markdown rendering support in markdown.
 
