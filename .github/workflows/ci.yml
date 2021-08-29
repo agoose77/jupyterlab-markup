@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: '14.x'
 
       - uses: actions/setup-python@v2
 
@@ -57,7 +57,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v1
         with:
-          node-version: '10.x'
+          node-version: '14.x'
 
       - uses: actions/setup-python@v2
         with:
