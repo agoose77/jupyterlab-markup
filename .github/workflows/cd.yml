@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   release:
     types:
-    - published
+      - published
 
 jobs:
   dist:
@@ -48,7 +48,7 @@ jobs:
           path: dist/*
 
   publish:
-    needs: [ dist ]
+    needs: [dist]
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
 

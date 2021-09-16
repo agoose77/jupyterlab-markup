@@ -20,7 +20,7 @@ export const anchor = simpleMarkdownItPlugin(PACKAGE_NS, {
         // match JupyterLab default behavior
         permalink: true,
         permalinkClass: 'jp-InternalAnchorLink',
-        slugify: (title: string) => title.replace(/ /g, '-')
+        slugify: (title: string): string => title.replace(/ /g, '-')
       }
     ];
   }

@@ -26,9 +26,9 @@ export const diagrams = simpleMarkdownItPlugin(PACKAGE_NS, {
       .---.
       /-o-/--
   .-/ / /->
-  ( *  \/
+  ( *  /
   '-.  \
-      \ /
+       /
       '
   \`\`\`
           `

@@ -20,7 +20,7 @@ import { BUILTINS } from './builtins';
 
 import '../style/index.css';
 
-const ICON_ID = `jupyterlab-markup:core`;
+const ICON_ID = 'jupyterlab-markup:core';
 
 const markupIcon = new LabIcon({
   name: ICON_ID,
@@ -86,7 +86,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
     });
 
     commands.addCommand(CommandIDs.toggleRenderer, {
-      label: args => `Use Markdown Extensions`,
+      label: args => 'Use Markdown Extensions',
       caption: 'Reopen documents to see changes',
       isToggled: () => enabled,
       isEnabled: () => manager.settings != null,

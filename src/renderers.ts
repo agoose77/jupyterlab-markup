@@ -13,7 +13,7 @@ import * as MarkdownIt from 'markdown-it';
 export async function renderMarkdown(
   options: renderMarkdown.IRenderOptions
 ): Promise<void> {
-  let { host, source, md, ...others } = options;
+  const { host, source, md, ...others } = options;
 
   // Clear the content if there is no source.
   if (!source) {
@@ -22,7 +22,7 @@ export async function renderMarkdown(
   }
 
   // Separate math from normal markdown text.
-  let parts = removeMath(source);
+  const parts = removeMath(source);
 
   let html = md.render(parts['text']);
 

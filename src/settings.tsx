@@ -198,7 +198,7 @@ export namespace MarkdownItSettings {
     advancedRequested = new Signal<Model, void>(this);
     _manager: MarkdownItManager;
     _disabledPlugins: string[] = [];
-    _enabled: boolean = true;
+    _enabled = true;
     _providers: IMarkdownIt.IPluginProvider[] = [];
 
     dispose() {
@@ -238,7 +238,7 @@ export namespace MarkdownItSettings {
     }
 
     setPluginEnabled(id: string, enabled: boolean) {
-      let disabledPlugins = this._disabledPlugins.slice();
+      const disabledPlugins = this._disabledPlugins.slice();
       const idx = disabledPlugins.indexOf(id);
       if (enabled) {
         disabledPlugins.splice(idx);

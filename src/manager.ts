@@ -108,7 +108,7 @@ export class MarkdownItManager implements IMarkdownIt {
   set enabled(enabled) {
     if (this.settings == null) {
       console.warn(
-        `Can't set enabled status of markdown extensions without settings`
+        "Can't set enabled status of markdown extensions without settings"
       );
       return;
     }
@@ -170,7 +170,7 @@ export class MarkdownItManager implements IMarkdownIt {
         const [plugin, ...pluginOptions] = await provider.plugin();
         let i = 0;
         const maxOptions = Math.max(pluginOptions.length, userOptions.length);
-        let compositeOptions = new Array(maxOptions);
+        const compositeOptions = new Array(maxOptions);
         while (i < maxOptions) {
           compositeOptions[i] =
             i < userOptions.length ? userOptions[i] : pluginOptions[i];
@@ -236,13 +236,13 @@ export class MarkdownItManager implements IMarkdownIt {
       return ''; // use external default escaping
     }
     try {
-      let spec = Mode.findBest(lang);
+      const spec = Mode.findBest(lang);
       if (!spec) {
         console.warn(`No CodeMirror mode: ${lang}`);
         return;
       }
 
-      let el = document.createElement('div');
+      const el = document.createElement('div');
       try {
         Mode.run(str, spec.mime, el);
         return el.innerHTML;
