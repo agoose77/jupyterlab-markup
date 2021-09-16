@@ -173,7 +173,7 @@ export class MarkdownItManager implements IMarkdownIt {
         let compositeOptions = new Array(maxOptions);
         while (i < maxOptions) {
           compositeOptions[i] =
-            userOptions.length < i ? userOptions[i] : pluginOptions[i];
+            i < userOptions.length ? userOptions[i] : pluginOptions[i];
           i++;
         }
         md = md.use(plugin, ...compositeOptions);
