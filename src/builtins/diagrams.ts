@@ -22,7 +22,7 @@ export const diagrams = simpleMarkdownItPlugin(PACKAGE_NS, {
       C-->D;
   \`\`\``,
     svgbob: `
-  \`\`\`bob
+  \`\`\`svgbob
       .---.
       /-o-/--
   .-/ / /->
