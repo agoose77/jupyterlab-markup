@@ -2,7 +2,7 @@ import { RenderedHTMLCommon } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { Message } from '@lumino/messaging';
 import * as renderers from './renderers';
-import * as MarkdownIt from 'markdown-it';
+import MarkdownIt from 'markdown-it';
 import { IMarkdownIt } from './tokens';
 
 /**
