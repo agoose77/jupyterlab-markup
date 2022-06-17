@@ -1,8 +1,4 @@
 repos:
-  - repo: 'https://github.com/mgedmin/check-manifest'
-    rev: '0.46'
-    hooks:
-      - id: check-manifest
   - repo: 'https://github.com/pre-commit/mirrors-prettier'
     rev: ''
     hooks:

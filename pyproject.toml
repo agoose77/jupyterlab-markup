@@ -1,22 +1,67 @@
 [build-system]
-requires = ["jupyter_packaging>=0.10.6,<2", "jupyterlab>=3.0.0,==3.*", "wheel", "setuptools>=46.4.0"]
-build-backend = "jupyter_packaging.build_api"
-
-[tool.jupyter-packaging.builder]
-factory = "jupyter_packaging.npm_builder"
-
-[tool.jupyter-packaging.build-args]
-build_cmd = "build:prod"
-
-# setup.cfg or tox.ini
-[tool.check-manifest]
-ignore = [
-    ".binder/**",
-    ".github/**",
-    "jupyterlab_markup/labextension/**",
-    ".eslint*",
-    ".prettier*",
-    ".pre-commit-config.yaml",
-    "CONTRIBUTING.md",
-    "yarn.lock"
+requires = [
+    "hatchling>=1.3.1", "hatch-nodejs-version>=0.1.0",
 ]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyterlab-markup"
+description = "Extensible markdown rendering support in markdown"
+readme = "README.md"
+license = "BSD-3-Clause"
+requires-python = ">=3.7"
+authors = [
+    { name = "Angus Hollands", email = "goosey15@gmail.com" },
+]
+keywords = [
+    "Jupyter",
+    "JupyterLab",
+    "JupyterLab3",
+    "Markdown",
+    "MarkdownIt",
+]
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 3",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Mime Renderers",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+]
+dependencies = [
+    "jupyterlab>=3.0,==3.*",
+]
+dynamic = [
+    "version",
+]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/agoose77/jupyterlab-markup/issues"
+Homepage = "https://github.com/agoose77/jupyterlab-markup.git"
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.build.targets.wheel.shared-data]
+"install.json" = "share/jupyter/labextensions/@agoose77/jupyterlab-markup/install.json"
+"jupyterlab_markup/labextension" = "share/jupyter/labextensions/@agoose77/jupyterlab-markup"
+
+[tool.hatch.build.targets.sdist]
+artifacts = ["jupyterlab_markup/labextension"]
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder"]
+build-function = "hatch_jupyter_builder.npm_builder"
+#skip_if_exists = ["jupyterlab_markup/labextension/static/style.js"] TODO - wait for fix in hatch-jupyter-builder
+ensured-targets = ["jupyterlab_markup/labextension/static/style.js", "jupyterlab_markup/labextension/package.json"]
+install-pre-commit-hook = true
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+build_cmd = "build:prod"
+npm = "jlpm"

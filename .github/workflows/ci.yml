@@ -30,6 +30,7 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
@@ -50,6 +51,7 @@ jobs:
           - 3.7
           - 3.8
           - 3.9
+          - 3.10
     name: Check Python ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v2
@@ -73,10 +75,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
           restore-keys: |
             ${{ runner.os }}-pip-
 
