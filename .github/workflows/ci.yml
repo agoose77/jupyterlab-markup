@@ -39,8 +39,6 @@ jobs:
             ${{ runner.os }}-pip-
 
       - uses: pre-commit/action@v2.0.3
-        with:
-          extra_args: --hook-stage manual check-manifest
 
   checks:
     runs-on: ubuntu-latest
