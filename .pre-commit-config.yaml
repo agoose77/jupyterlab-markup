@@ -1,11 +1,11 @@
 repos:
   - repo: 'https://github.com/pre-commit/mirrors-prettier'
-    rev: 'v2.7.1'
+    rev: 'v2.7.0'
     hooks:
       - id: prettier
         files: .*\.(ts|tsx|js|jsx|css|json|md|yml)$
   - repo: 'https://github.com/pre-commit/mirrors-eslint'
-    rev: 'v8.17.0'
+    rev: 'v8.18.0'
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
@@ -13,7 +13,8 @@ repos:
         additional_dependencies:
           - '@typescript-eslint/eslint-plugin@2.27.0'
           - '@typescript-eslint/parser@2.27.0'
-          - eslint@^6.0.0
-          - eslint-config-prettier@6.10.1
-          - eslint-plugin-prettier@3.1.4
-          - typescript@4.1.3
+          - eslint@^8.18.0
+          - prettier@^2.7.0
+          - eslint-config-prettier@8.5.0
+          - eslint-plugin-prettier@4.0.0
+          - typescript@4.7.4
