@@ -48,10 +48,8 @@ export class MarkdownItManager implements IMarkdownIt {
   /**
    * Providers labeled by an arbitrary key (usually the markdown-it package name)
    */
-  private _pluginProviders: Map<
-    string,
-    IMarkdownIt.IPluginProvider
-  > = new Map();
+  private _pluginProviders: Map<string, IMarkdownIt.IPluginProvider> =
+    new Map();
 
   constructor() {
     markdownRendererFactory.createRenderer = this.createRenderer;
