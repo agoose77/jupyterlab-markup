@@ -3,7 +3,10 @@ repos:
     rev: 'v2.7.1'
     hooks:
       - id: prettier
+        files: .*\.(ts|tsx|js|jsx|css|json|md|yml)$
   - repo: 'https://github.com/pre-commit/mirrors-eslint'
     rev: 'v8.17.0'
     hooks:
       - id: eslint
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts and *.tsx
+        types: [file]
