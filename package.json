@@ -62,7 +62,7 @@
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-footnote": "^3.0.2",
     "markdown-it-task-lists": "^2.1.1",
-    "react": "^18.2.0"
+    "react": "^17.0.1"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.0.0",
