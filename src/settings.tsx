@@ -42,7 +42,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
         Open in Advanced Settings...
       </a>
     );
-    if (manager == null) {
+    if (manager === undefined) {
       return <div />;
     }
 
@@ -63,21 +63,6 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
           </ul>
         </header>
         <article>
-          <section id={GLOBAL_ID}>
-            <h3>Global</h3>
-            <label>
-              <input
-                type="checkbox"
-                defaultChecked={m.enabled}
-                onChange={this.onEnabledChanged}
-              />
-              Use <code>markdown-it</code>
-            </label>
-            <blockquote>
-              Enable to use the <code>markdown-it</code> Markdown renderer and
-              extensions for any new renderers.
-            </blockquote>
-          </section>
           <h3 id={PLUGIN_ID}>Markdown-it Plugins</h3>
           <blockquote>
             Extensions can be individually enabled or disabled with the
@@ -95,7 +80,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   protected renderPluginNav(provider: IMarkdownIt.IPluginProvider) {
     const m = this.model;
     const enabled = m.disabledPlugins.indexOf(provider.id) === -1;
-    const navClass = enabled && m.enabled ? '' : DISABLED_CLASS;
+    const navClass = enabled ? '' : DISABLED_CLASS;
 
     return (
       <li key={provider.id} className={navClass}>
@@ -110,7 +95,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
   protected renderPluginProvider(provider: IMarkdownIt.IPluginProvider) {
     const m = this.model;
     const enabled = m.disabledPlugins.indexOf(provider.id) === -1;
-    const sectionClass = enabled && m.enabled ? '' : DISABLED_CLASS;
+    const sectionClass = enabled ? '' : DISABLED_CLASS;
 
     const docs = [];
     const examples = [];
@@ -181,10 +166,6 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     this.model.setPluginEnabled(value, checked);
   };
 
-  protected onEnabledChanged = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    this.model.enabled = evt.currentTarget.checked;
-  };
-
   onAdvancedClicked = () => {
     this.model.advancedRequested.emit(void 0);
   };
@@ -198,7 +179,6 @@ export namespace MarkdownItSettings {
     advancedRequested = new Signal<Model, void>(this);
     _manager: MarkdownItManager;
     _disabledPlugins: string[] = [];
-    _enabled = true;
     _providers: IMarkdownIt.IPluginProvider[] = [];
 
     dispose() {
@@ -225,14 +205,6 @@ export namespace MarkdownItSettings {
       return this._disabledPlugins;
     }
 
-    get enabled() {
-      return this._enabled;
-    }
-
-    set enabled(enabled) {
-      this._manager.settings.set('enabled', enabled);
-    }
-
     get providers() {
       return this._providers;
     }
@@ -255,11 +227,11 @@ export namespace MarkdownItSettings {
     onSettingsChanged() {
       const { composite } = this.manager.settings;
 
+      // eslint-disable-next-line eqeqeq
       if (composite != null) {
         this._disabledPlugins = (composite['disabled-plugins'] ||
           []) as string[];
 
-        this._enabled = composite['enabled'] as boolean;
         this._providers = this.manager.pluginProviderIds.map(
           this.manager.getPluginProvider,
           this.manager

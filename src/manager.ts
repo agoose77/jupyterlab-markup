@@ -62,7 +62,7 @@ export class MarkdownItManager implements IMarkdownIt {
   /**
    * The settings
    */
-  get settings() {
+  get settings(): ISettingRegistry.ISettings | null {
     return this._settings;
   }
 
