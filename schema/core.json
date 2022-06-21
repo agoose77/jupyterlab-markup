@@ -27,7 +27,7 @@
       "default": {}
     },
     "plugin-options": {
-      "title": "markdown-it plugin options. See individual plugins for options.",
+      "title": "markdown-it plugin option.",
       "type": "object",
       "description": "Advanced. List of positional JSON-compatible options to pass to the named plugin.",
       "default": {},

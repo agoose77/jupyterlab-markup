@@ -10,11 +10,6 @@ import { RenderedMarkdown } from './widgets';
 import { IMarkdownIt } from './tokens';
 
 /**
- * A handle for the original createRenderer for restoring default behavior
- */
-const ORIGINAL_RENDERER = markdownRendererFactory.createRenderer;
-
-/**
  * An implementation of a source of markdown renderers with markdown-it and plugins
  */
 export class MarkdownItManager implements IMarkdownIt {
@@ -26,19 +21,14 @@ export class MarkdownItManager implements IMarkdownIt {
   protected userDisabledPlugins: string[] = [];
 
   /**
-   * Whether to use the markdown-it renderer: if installed, will use unless configured by user
-   */
-  protected useMarkdownIt = true;
-
-  /**
    * MarkdownIt options configured by the user.
    */
-  protected userMarkdownItOptions: object = {};
+  protected userMarkdownItOptions: { [key: string]: any } = {};
 
   /**
    * Per-plugin options configured by the user.
    */
-  protected userPluginOptions: IMarkdownIt.IAllPluginOptions = {};
+  protected userPluginOptions: { [key: string]: any[] } = {};
 
   /**
    * A handle on the settings for this plugin, which will be set... eventually
@@ -63,7 +53,7 @@ export class MarkdownItManager implements IMarkdownIt {
       this._settings.changed.disconnect(this.onSettingsChanged, this);
     }
     this._settings = settings;
-    if (settings != null) {
+    if (settings !== null) {
       this._settings.changed.connect(this.onSettingsChanged, this);
       this.onSettingsChanged();
     }
@@ -80,9 +70,6 @@ export class MarkdownItManager implements IMarkdownIt {
    * Update caches of settings values for new renderers
    */
   protected onSettingsChanged() {
-    const useMarkdownIt = this.settings?.composite['enabled'] as boolean;
-    this.useMarkdownIt = useMarkdownIt == null ? true : useMarkdownIt;
-
     this.userMarkdownItOptions =
       (this.settings?.composite['markdown-it-options'] as any) || {};
 
@@ -90,27 +77,12 @@ export class MarkdownItManager implements IMarkdownIt {
       (this.settings?.composite['disabled-plugins'] as string[]) || [];
 
     this.userPluginOptions =
-      (this.settings?.composite[
-        'plugin-options'
-      ] as IMarkdownIt.IAllPluginOptions) || {};
+      (this.settings?.composite['plugin-options'] as {
+        [key: string]: any[];
+      }) || {};
 
-    // re-brodcast settings changes
+    // re-broadcast settings changes
     this.settingsChanged.emit(void 0);
-  }
-
-  get enabled() {
-    const enabled = this.settings?.composite;
-    return !!(enabled == null ? true : enabled);
-  }
-
-  set enabled(enabled) {
-    if (this.settings == null) {
-      console.warn(
-        "Can't set enabled status of markdown extensions without settings"
-      );
-      return;
-    }
-    this.settings.set('enabled', enabled);
   }
 
   /**
@@ -139,9 +111,7 @@ export class MarkdownItManager implements IMarkdownIt {
    * Create a new renderer, either with markdown-it or the original implementation
    */
   protected createRenderer = (options: IRenderMime.IRendererOptions) => {
-    return this.useMarkdownIt
-      ? new RenderedMarkdown(options)
-      : ORIGINAL_RENDERER(options);
+    return new RenderedMarkdown(options);
   };
 
   /**
@@ -194,6 +164,7 @@ export class MarkdownItManager implements IMarkdownIt {
         continue;
       }
 
+      // eslint-disable-next-line eqeqeq
       if (plugin.options == null) {
         continue;
       }

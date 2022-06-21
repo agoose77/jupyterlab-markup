@@ -52,13 +52,13 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
       .then(settings => (manager.settings = settings))
       .catch(console.warn);
 
-    let settingsMain: MainAreaWidget;
+    let settingsMain: MainAreaWidget = null;
 
     // commands
     commands.addCommand(CommandIDs.showSettings, {
       label: 'Markdown Extension Settings...',
       execute: args => {
-        if (settingsMain == null) {
+        if (settingsMain === null) {
           const model = new MarkdownItSettings.Model();
           model.advancedRequested.connect(() =>
             commands.execute('settingeditor:open')
@@ -72,26 +72,6 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
         }
         shell.add(settingsMain, 'main');
         shell.activateById(settingsMain.id);
-      }
-    });
-
-    // cached enabled setting
-    let enabled = true;
-
-    manager.settingsChanged.connect(() => {
-      const { composite } = manager.settings;
-      if (composite != null) {
-        enabled = !!composite.enabled;
-      }
-    });
-
-    commands.addCommand(CommandIDs.toggleRenderer, {
-      label: args => 'Use Markdown Extensions',
-      caption: 'Reopen documents to see changes',
-      isToggled: () => enabled,
-      isEnabled: () => manager.settings != null,
-      execute: args => {
-        manager.enabled = !!(args?.enabled == null ? !enabled : args.enabled);
       }
     });
 

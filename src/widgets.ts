@@ -14,7 +14,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    *
    * @param options - The options for initializing the widget.
    */
-  md: MarkdownIt;
+  md: MarkdownIt = null;
 
   /**
    * A static manager set by the core plugin for getting MarkdownIt instances
@@ -34,7 +34,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    * @returns A promise which resolves when rendering is complete.
    */
   async render(model: IRenderMime.IMimeModel): Promise<void> {
-    if (this.md == null) {
+    if (this.md === null) {
       this.md = await RenderedMarkdown.markdownItManager.getMarkdownIt(this);
     }
     return await renderers.renderMarkdown({

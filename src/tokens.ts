@@ -48,7 +48,6 @@ export namespace IMarkdownIt {
   export interface IPlugin {
     (md: MarkdownIt, ...params: any[]): void;
   }
-  export type TPluginOptions = object;
   export interface IPluginProvider {
     /**
      * A unique identifier for the plugin, usually the name of the upstream package
@@ -77,9 +76,6 @@ export namespace IMarkdownIt {
     /**
      * Additional options to pass to the MarkdownIt constructor
      */
-    options?(widget: RenderedMarkdown): Promise<TPluginOptions>;
-  }
-  export interface IAllPluginOptions {
-    [key: string]: any[];
+    options?(widget: RenderedMarkdown): Promise<{ [key: string]: any }>;
   }
 }
