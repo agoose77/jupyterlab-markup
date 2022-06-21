@@ -2,7 +2,6 @@ import { RenderedHTMLCommon } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { Message } from '@lumino/messaging';
 import * as renderers from './renderers';
-import MarkdownIt from 'markdown-it';
 import { IMarkdownIt } from './tokens';
 
 /**
@@ -14,7 +13,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    *
    * @param options - The options for initializing the widget.
    */
-  md: MarkdownIt = null;
+  renderer: IMarkdownIt.IRenderer = null;
 
   /**
    * A static manager set by the core plugin for getting MarkdownIt instances
@@ -34,8 +33,11 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    * @returns A promise which resolves when rendering is complete.
    */
   async render(model: IRenderMime.IMimeModel): Promise<void> {
-    if (this.md === null) {
-      this.md = await RenderedMarkdown.markdownItManager.getMarkdownIt(this);
+    if (this.renderer === null) {
+      this.renderer = await RenderedMarkdown.markdownItManager.getRenderer(
+        this,
+        {}
+      );
     }
     return await renderers.renderMarkdown({
       host: this.node,
@@ -45,7 +47,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
       sanitizer: this.sanitizer,
       linkHandler: this.linkHandler,
       shouldTypeset: this.isAttached,
-      md: this.md,
+      renderer: this.renderer,
       latexTypesetter: this.latexTypesetter
     });
   }

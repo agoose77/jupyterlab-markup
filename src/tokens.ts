@@ -26,10 +26,10 @@ export interface IMarkdownIt {
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
   removePluginProvider(id: string): void;
   getPluginProvider(id: string): IMarkdownIt.IPluginProvider | null;
-  getMarkdownIt(
+  getRenderer(
     widget: RenderedMarkdown,
     options?: MarkdownIt.Options
-  ): Promise<MarkdownIt>;
+  ): Promise<IMarkdownIt.IRenderer>;
   pluginProviderIds: string[];
 }
 
@@ -77,5 +77,36 @@ export namespace IMarkdownIt {
      * Additional options to pass to the MarkdownIt constructor
      */
     options?(widget: RenderedMarkdown): Promise<{ [key: string]: any }>;
+    /**
+     * A lazy provider of a post-render hook
+     */
+    postRenderHook?(): Promise<IPostRenderHook>;
+  }
+  export interface IPostRenderHook {
+    /**
+     * Post-render ordering, default of 100;
+     */
+    rank?: number;
+
+    /**
+     * Post-rendering callback
+     * @param node
+     */
+    postRender(node: HTMLElement): Promise<void>;
+  }
+  export interface IRenderer {
+    markdownIt: MarkdownIt;
+
+    /**
+     * Interface to render content to HTML
+     * @param content
+     */
+    render(content: string): string;
+
+    /**
+     * Interface to transform rendered HTML
+     * @param node
+     */
+    postRender(node: HTMLElement): Promise<void>;
   }
 }

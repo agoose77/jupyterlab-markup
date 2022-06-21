@@ -114,13 +114,10 @@ export class MarkdownItManager implements IMarkdownIt {
     return new RenderedMarkdown(options);
   };
 
-  /**
-   * Get a MarkdownIt instance
-   */
-  async getMarkdownIt(
+  async getRenderer(
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
-  ): Promise<MarkdownIt> {
+  ): Promise<IMarkdownIt.IRenderer> {
     const allOptions = {
       ...(await this.getOptions(widget)),
       ...options,
@@ -128,6 +125,8 @@ export class MarkdownItManager implements IMarkdownIt {
     };
 
     let md = new MarkdownIt('default', allOptions);
+
+    const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
 
     for (const [id, provider] of this._pluginProviders.entries()) {
       if (this.userDisabledPlugins.indexOf(id) !== -1) {
@@ -145,12 +144,32 @@ export class MarkdownItManager implements IMarkdownIt {
           i++;
         }
         md = md.use(plugin, ...compositeOptions);
+
+        // Build table of post render hooks
+        if (provider?.postRenderHook !== undefined) {
+          postRenderHooks.push(await provider.postRenderHook());
+        }
       } catch (err) {
         console.warn(`Failed to load/use markdown-it plugin ${id}`, err);
       }
     }
+    // Sort hooks by rank
+    postRenderHooks.sort((a, b) => (a?.rank ?? 100) - (b?.rank ?? 100));
 
-    return md;
+    return {
+      get markdownIt(): MarkdownIt {
+        return md;
+      },
+
+      render: content => md.render(content),
+      // Run hooks serially
+
+      postRender: async (node: HTMLElement) => {
+        for (const hook of postRenderHooks) {
+          await hook.postRender(node);
+        }
+      }
+    };
   }
 
   /**
