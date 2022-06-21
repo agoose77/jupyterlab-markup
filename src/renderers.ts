@@ -1,4 +1,4 @@
-import { removeMath, renderHTML, replaceMath } from '@jupyterlab/rendermime';
+import { renderHTML } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { ISanitizer } from '@jupyterlab/apputils';
 import MarkdownIt from 'markdown-it';
@@ -21,18 +21,10 @@ export async function renderMarkdown(
     return;
   }
 
-  // Separate math from normal markdown text.
-  const parts = removeMath(source);
-
-  let html = md.render(parts['text']);
-
-  // Replace math.
-  html = replaceMath(html, parts['math']);
-
   // Render HTML.
   await renderHTML({
     host,
-    source: html,
+    source: md.render(source),
     ...others
   });
 }
