@@ -5,12 +5,6 @@
   "description": "Markdown extension settings",
   "type": "object",
   "properties": {
-    "enabled": {
-      "title": "Enable markdown-it Markdown renderer",
-      "type": "boolean",
-      "default": true,
-      "description": "Use markdown-it for new renderers. Re-open existing documents to see changes."
-    },
     "disabled-plugins": {
       "title": "Disabled plugins",
       "type": "array",
@@ -24,10 +18,40 @@
       "title": "MarkdownIt options",
       "type": "object",
       "description": "Advanced. JSON-compatible override options to MarkdownIt. https://markdown-it.github.io/markdown-it/#MarkdownIt.new",
-      "default": {}
+      "default": {},
+      "properties": {
+        "xhtmlOut": {
+          "type": "boolean"
+        },
+        "breaks": {
+          "type": "boolean"
+        },
+        "langPrefix": {
+          "type": "string"
+        },
+        "linkify": {
+          "type": "boolean"
+        },
+        "typographer": {
+          "type": "boolean"
+        },
+        "quotes": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
     },
     "plugin-options": {
-      "title": "markdown-it plugin option.",
+      "title": "Plugin options",
       "type": "object",
       "description": "Advanced. List of positional JSON-compatible options to pass to the named plugin.",
       "default": {},
