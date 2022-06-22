@@ -102,7 +102,7 @@ export namespace IMarkdownIt {
     /**
      * Post-rendering callback
      */
-    postRender(node: HTMLElement): Promise<HTMLElement>;
+    postRender(node: HTMLElement): Promise<void>;
   }
   export interface IRenderer {
     markdownIt: MarkdownIt;
