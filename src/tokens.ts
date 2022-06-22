@@ -26,6 +26,11 @@ export interface IMarkdownIt {
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
   removePluginProvider(id: string): void;
   getPluginProvider(id: string): IMarkdownIt.IPluginProvider | null;
+  // Deprecated
+  getMarkdownIt(
+    widget: RenderedMarkdown,
+    options?: MarkdownIt.Options
+  ): Promise<MarkdownIt>;
   getRenderer(
     widget: RenderedMarkdown,
     options?: MarkdownIt.Options

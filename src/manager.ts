@@ -122,6 +122,17 @@ export class MarkdownItManager implements IMarkdownIt {
     return new RenderedMarkdown(options);
   };
 
+  /**
+   * Get the MarkdownIt singleton. This is deprecated
+   */
+  async getMarkdownIt(
+    widget: RenderedMarkdown,
+    options: MarkdownIt.Options = {}
+  ): Promise<MarkdownIt> {
+    const renderer = await this.getRenderer(widget, options);
+    return renderer.markdownIt;
+  }
+
   async getRenderer(
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
