@@ -143,8 +143,7 @@ export class MarkdownItManager implements IMarkdownIt {
     // Create MarkdownIt instance
     const allOptions = {
       ...(await this.getOptions(widget)),
-      ...options,
-      ...this.userMarkdownItOptions
+      ...options
     };
     let md = new MarkdownIt('default', allOptions);
 
@@ -222,7 +221,10 @@ export class MarkdownItManager implements IMarkdownIt {
    * Combine core options with base options, plugin provider options, and user settings
    */
   async getOptions(widget: RenderedMarkdown) {
-    let allOptions = this.baseMarkdownItOptions;
+    let allOptions = {
+      ...this.baseMarkdownItOptions,
+      ...this.userMarkdownItOptions
+    };
 
     // Sort providers by rank
     const rankComparator = rankedComparator(100);
