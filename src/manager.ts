@@ -221,8 +221,13 @@ export class MarkdownItManager implements IMarkdownIt {
   async getOptions(widget: RenderedMarkdown) {
     let allOptions = this.baseMarkdownItOptions;
 
-    for (const [id, plugin] of this._pluginProviders.entries()) {
-      if (this.userDisabledPlugins.indexOf(id) !== -1) {
+    // Sort providers by rank
+    const rankComparator = rankedComparator(100);
+    const pluginProviders = [...this._pluginProviders.values()];
+    pluginProviders.sort(rankComparator);
+
+    for (const plugin of pluginProviders) {
+      if (this.userDisabledPlugins.indexOf(plugin.id) !== -1) {
         continue;
       }
 
