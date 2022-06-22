@@ -161,17 +161,20 @@ export class MarkdownItManager implements IMarkdownIt {
         continue;
       }
       try {
-        const userOptions = this.userPluginOptions[provider.id] || [];
-        const [plugin, ...pluginOptions] = await provider.plugin();
-        let i = 0;
-        const maxOptions = Math.max(pluginOptions.length, userOptions.length);
-        const compositeOptions = new Array(maxOptions);
-        while (i < maxOptions) {
-          compositeOptions[i] =
-            i < userOptions.length ? userOptions[i] : pluginOptions[i];
-          i++;
+        // Load MarkdownIt plugin
+        if (provider.plugin !== undefined) {
+          const userOptions = this.userPluginOptions[provider.id] || [];
+          const [plugin, ...pluginOptions] = await provider.plugin();
+          const maxOptions = Math.max(pluginOptions.length, userOptions.length);
+          const compositeOptions = new Array(maxOptions);
+          let i = 0;
+          while (i < maxOptions) {
+            compositeOptions[i] =
+              i < userOptions.length ? userOptions[i] : pluginOptions[i];
+            i++;
+          }
+          md = md.use(plugin, ...compositeOptions);
         }
-        md = md.use(plugin, ...compositeOptions);
 
         // Build table of lifecycle hooks
         if (provider?.preParseHook !== undefined) {
@@ -239,7 +242,7 @@ export class MarkdownItManager implements IMarkdownIt {
         allOptions = { ...allOptions, ...(await plugin.options(widget)) };
       } catch (err) {
         console.warn(
-          `Failed to get options from markdown-it plugin ${id}`,
+          `Failed to get options from markdown-it plugin ${plugin.id}`,
           err
         );
       }
