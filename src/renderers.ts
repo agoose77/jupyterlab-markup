@@ -1,7 +1,7 @@
-import { removeMath, renderHTML, replaceMath } from '@jupyterlab/rendermime';
+import { renderHTML } from '@jupyterlab/rendermime';
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { ISanitizer } from '@jupyterlab/apputils';
-import MarkdownIt from 'markdown-it';
+import { IMarkdownIt } from './tokens';
 
 /**
  * Render Markdown into a host node.
@@ -13,7 +13,7 @@ import MarkdownIt from 'markdown-it';
 export async function renderMarkdown(
   options: renderMarkdown.IRenderOptions
 ): Promise<void> {
-  const { host, source, md, ...others } = options;
+  const { host, source, renderer, ...others } = options;
 
   // Clear the content if there is no source.
   if (!source) {
@@ -21,20 +21,14 @@ export async function renderMarkdown(
     return;
   }
 
-  // Separate math from normal markdown text.
-  const parts = removeMath(source);
-
-  let html = md.render(parts['text']);
-
-  // Replace math.
-  html = replaceMath(html, parts['math']);
-
   // Render HTML.
   await renderHTML({
     host,
-    source: html,
-    ...others
+    source: renderer.render(source),
+    ...others,
+    shouldTypeset: false
   });
+  await renderer.postRender(host);
 }
 
 /**
@@ -83,7 +77,7 @@ export namespace renderMarkdown {
     /**
      * MarkdownIt renderer
      */
-    md: MarkdownIt;
+    renderer: IMarkdownIt.IRenderer;
 
     /**
      * The LaTeX typesetter for the application.

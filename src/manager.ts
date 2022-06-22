@@ -10,6 +10,14 @@ import { RenderedMarkdown } from './widgets';
 import { IMarkdownIt } from './tokens';
 
 /**
+ * Comparator of IRanked implementations
+ */
+function rankedComparator(default_rank: number) {
+  return (left: IMarkdownIt.IRanked, right: IMarkdownIt.IRanked) =>
+    (left.rank ?? default_rank) - (right.rank ?? default_rank);
+}
+
+/**
  * An implementation of a source of markdown renderers with markdown-it and plugins
  */
 export class MarkdownItManager implements IMarkdownIt {
@@ -114,27 +122,32 @@ export class MarkdownItManager implements IMarkdownIt {
     return new RenderedMarkdown(options);
   };
 
-  /**
-   * Get a MarkdownIt instance
-   */
-  async getMarkdownIt(
+  async getRenderer(
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
-  ): Promise<MarkdownIt> {
+  ): Promise<IMarkdownIt.IRenderer> {
+    // Create MarkdownIt instance
     const allOptions = {
       ...(await this.getOptions(widget)),
       ...options,
       ...this.userMarkdownItOptions
     };
-
     let md = new MarkdownIt('default', allOptions);
 
-    for (const [id, provider] of this._pluginProviders.entries()) {
-      if (this.userDisabledPlugins.indexOf(id) !== -1) {
+    // Sort providers by rank
+    const rankComparator = rankedComparator(100);
+    const pluginProviders = [...this._pluginProviders.values()];
+    pluginProviders.sort(rankComparator);
+
+    // Lifecycle hooks
+    const preParseHooks: IMarkdownIt.IPreParseHook[] = [];
+    const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
+    for (const provider of pluginProviders) {
+      if (this.userDisabledPlugins.indexOf(provider.id) !== -1) {
         continue;
       }
       try {
-        const userOptions = this.userPluginOptions[id] || [];
+        const userOptions = this.userPluginOptions[provider.id] || [];
         const [plugin, ...pluginOptions] = await provider.plugin();
         let i = 0;
         const maxOptions = Math.max(pluginOptions.length, userOptions.length);
@@ -145,12 +158,47 @@ export class MarkdownItManager implements IMarkdownIt {
           i++;
         }
         md = md.use(plugin, ...compositeOptions);
+
+        // Build table of lifecycle hooks
+        if (provider?.preParseHook !== undefined) {
+          preParseHooks.push(await provider.preParseHook());
+        }
+        if (provider?.postRenderHook !== undefined) {
+          postRenderHooks.push(await provider.postRenderHook());
+        }
       } catch (err) {
-        console.warn(`Failed to load/use markdown-it plugin ${id}`, err);
+        console.warn(
+          `Failed to load/use markdown-it plugin ${provider.id}`,
+          err
+        );
       }
     }
+    // Sort hooks by rank
+    preParseHooks.sort(rankComparator);
+    postRenderHooks.sort(rankComparator);
 
-    return md;
+    return {
+      get markdownIt(): MarkdownIt {
+        return md;
+      },
+
+      render: content => md.render(content),
+
+      // Run hooks serially
+      preParse: async (content: string) => {
+        for (const hook of preParseHooks) {
+          content = await hook.preParse(content);
+        }
+        return content;
+      },
+
+      // Run hooks serially
+      postRender: async (node: HTMLElement) => {
+        for (const hook of postRenderHooks) {
+          await hook.postRender(node);
+        }
+      }
+    };
   }
 
   /**
