@@ -16,7 +16,7 @@ export const dollarmath = simpleMarkdownItPlugin(PACKAGE_NS, {
   },
   plugin: async () => {
     const dollarmathPlugin = await import(
-      /* webpackChunkName: "markdown-it-anchor" */ 'markdown-it-dollarmath'
+      /* webpackChunkName: "markdown-it-dollarmath" */ 'markdown-it-dollarmath'
     );
     return [
       dollarmathPlugin.default,

@@ -26,7 +26,7 @@ export const svgbob = simpleMarkdownItPlugin(PACKAGE_NS, {
   },
   plugin: async () => {
     const factory = await import(
-      /* webpackChunkName: "markdown-it-diagrams" */ '@agoose77/markdown-it-svgbob'
+      /* webpackChunkName: "markdown-it-svgbob" */ '@agoose77/markdown-it-svgbob'
     );
     return [await factory.default()];
   }
