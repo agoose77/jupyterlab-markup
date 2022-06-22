@@ -23,7 +23,7 @@ export const dollarmath = simpleMarkdownItPlugin(PACKAGE_NS, {
       {
         allow_space: true,
         allow_digits: true,
-        double_inline: false,
+        double_inline: true,
         allow_labels: true,
         labelNormalizer(label: string) {
           return label.replace(/[\s]+/g, '-');
