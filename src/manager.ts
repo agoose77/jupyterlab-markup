@@ -10,6 +10,14 @@ import { RenderedMarkdown } from './widgets';
 import { IMarkdownIt } from './tokens';
 
 /**
+ * Comparator of IRanked implementations
+ */
+function rankedComparator(default_rank: number) {
+  return (left: IMarkdownIt.IRanked, right: IMarkdownIt.IRanked) =>
+    (left.rank ?? default_rank) - (right.rank ?? default_rank);
+}
+
+/**
  * An implementation of a source of markdown renderers with markdown-it and plugins
  */
 export class MarkdownItManager implements IMarkdownIt {
@@ -127,8 +135,9 @@ export class MarkdownItManager implements IMarkdownIt {
     let md = new MarkdownIt('default', allOptions);
 
     // Sort providers by rank
+    const rankComparator = rankedComparator(100);
     const pluginProviders = [...this._pluginProviders.values()];
-    pluginProviders.sort((a, b) => (a.rank ?? 100) - (b.rank ?? 100));
+    pluginProviders.sort(rankComparator);
 
     const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
     for (const provider of pluginProviders) {
@@ -160,7 +169,7 @@ export class MarkdownItManager implements IMarkdownIt {
       }
     }
     // Sort hooks by rank
-    postRenderHooks.sort((a, b) => (a?.rank ?? 100) - (b?.rank ?? 100));
+    postRenderHooks.sort(rankComparator);
 
     return {
       get markdownIt(): MarkdownIt {

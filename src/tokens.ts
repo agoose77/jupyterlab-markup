@@ -45,10 +45,16 @@ export namespace CommandIDs {
  * A namespace for plugin-related types and interfaces
  */
 export namespace IMarkdownIt {
+  export interface IRanked {
+    /**
+     * Order (ascending), default of 100;
+     */
+    rank?: number;
+  }
   export interface IPlugin {
     (md: MarkdownIt, ...params: any[]): void;
   }
-  export interface IPluginProvider {
+  export interface IPluginProvider extends IRanked {
     /**
      * A unique identifier for the plugin, usually the name of the upstream package
      */
@@ -70,10 +76,6 @@ export namespace IMarkdownIt {
      */
     examples?: { [key: string]: string };
     /**
-     * Plugin ordering, default of 100;
-     */
-    rank?: number;
-    /**
      * A lazy provider of the plugin function and plugin options
      */
     plugin(): Promise<[IPlugin, ...any]>;
@@ -86,12 +88,7 @@ export namespace IMarkdownIt {
      */
     postRenderHook?(): Promise<IPostRenderHook>;
   }
-  export interface IPostRenderHook {
-    /**
-     * Post-render ordering, default of 100;
-     */
-    rank?: number;
-
+  export interface IPostRenderHook extends IRanked {
     /**
      * Post-rendering callback
      * @param node
