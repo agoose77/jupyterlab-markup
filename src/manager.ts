@@ -118,22 +118,25 @@ export class MarkdownItManager implements IMarkdownIt {
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
   ): Promise<IMarkdownIt.IRenderer> {
+    // Create MarkdownIt instance
     const allOptions = {
       ...(await this.getOptions(widget)),
       ...options,
       ...this.userMarkdownItOptions
     };
-
     let md = new MarkdownIt('default', allOptions);
 
-    const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
+    // Sort providers by rank
+    const pluginProviders = [...this._pluginProviders.values()];
+    pluginProviders.sort((a, b) => (a.rank ?? 100) - (b.rank ?? 100));
 
-    for (const [id, provider] of this._pluginProviders.entries()) {
-      if (this.userDisabledPlugins.indexOf(id) !== -1) {
+    const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
+    for (const provider of pluginProviders) {
+      if (this.userDisabledPlugins.indexOf(provider.id) !== -1) {
         continue;
       }
       try {
-        const userOptions = this.userPluginOptions[id] || [];
+        const userOptions = this.userPluginOptions[provider.id] || [];
         const [plugin, ...pluginOptions] = await provider.plugin();
         let i = 0;
         const maxOptions = Math.max(pluginOptions.length, userOptions.length);
@@ -150,7 +153,10 @@ export class MarkdownItManager implements IMarkdownIt {
           postRenderHooks.push(await provider.postRenderHook());
         }
       } catch (err) {
-        console.warn(`Failed to load/use markdown-it plugin ${id}`, err);
+        console.warn(
+          `Failed to load/use markdown-it plugin ${provider.id}`,
+          err
+        );
       }
     }
     // Sort hooks by rank

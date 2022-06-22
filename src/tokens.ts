@@ -70,6 +70,10 @@ export namespace IMarkdownIt {
      */
     examples?: { [key: string]: string };
     /**
+     * Plugin ordering, default of 100;
+     */
+    rank?: number;
+    /**
      * A lazy provider of the plugin function and plugin options
      */
     plugin(): Promise<[IPlugin, ...any]>;
