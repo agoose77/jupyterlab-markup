@@ -129,6 +129,9 @@ export class MarkdownItManager implements IMarkdownIt {
     widget: RenderedMarkdown,
     options: MarkdownIt.Options = {}
   ): Promise<MarkdownIt> {
+    console.warn(
+      'IMarkdownIt.getMarkdownIt is deprecated, please use IMarkdownIt.getRenderer instead'
+    );
     const renderer = await this.getRenderer(widget, options);
     return renderer.markdownIt;
   }
