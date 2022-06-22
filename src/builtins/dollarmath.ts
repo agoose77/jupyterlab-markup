@@ -31,9 +31,9 @@ export const dollarmath = simpleMarkdownItPlugin(PACKAGE_NS, {
         renderer(content: string, opts: IRenderOptions) {
           const { displayMode } = opts;
           if (displayMode) {
-            return `<div class="math math_display">$$${content}$$</div>`;
+            return `$$${content}$$`;
           } else {
-            return `<div class="math math_inline">$${content}$</div>`;
+            return `$${content}$`;
           }
         },
         labelRenderer(label: string) {

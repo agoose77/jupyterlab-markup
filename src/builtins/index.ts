@@ -4,7 +4,7 @@ import { svgbob } from './svgbob';
 import { mermaid } from './mermaid';
 import { footnote } from './footnote';
 import { taskLists } from './task-lists';
-import { typesetter } from './typesetter';
+import { typesetterAdaptor } from './typesetter-adaptor';
 import { dollarmath } from './dollarmath';
 
 /**
@@ -17,6 +17,6 @@ export const BUILTINS = [
   mermaid,
   svgbob,
   taskLists,
-  typesetter,
+  typesetterAdaptor,
   dollarmath
 ];

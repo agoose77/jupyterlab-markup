@@ -5,16 +5,17 @@ import { JupyterFrontEndPlugin } from '@jupyterlab/application';
 /**
  * Adds anchors to headers
  */
-const plugin_id = 'jupyterlab-typesetter';
-export const typesetter: JupyterFrontEndPlugin<void> = {
+const plugin_id = 'typesetter-adaptor';
+export const typesetterAdaptor: JupyterFrontEndPlugin<void> = {
   id: `${PACKAGE_NS}:${plugin_id}`,
   autoStart: true,
   requires: [IMarkdownIt, ILatexTypesetter],
   activate: (app, markdownIt: IMarkdownIt, typesetter: ILatexTypesetter) => {
     const provider: IMarkdownIt.IPluginProvider = {
       id: plugin_id,
-      title: 'JupyterLab ILatexTypesetter',
-      description: 'Enable math rendering using JupyterLab typesetter',
+      title: 'ILatexTypesetter Adaptor',
+      description:
+        'Enable math rendering using JupyterLab ILatexTypesetter interface',
       documentationUrls: {},
       plugin: async () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function
