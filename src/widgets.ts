@@ -56,8 +56,9 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    * A message handler invoked on an `'after-attach'` message.
    */
   onAfterAttach(msg: Message): void {
-    if (this.latexTypesetter) {
-      this.latexTypesetter.typeset(this.node);
-    }
+    // Don't render math automatically
+    // if (this.latexTypesetter ) {
+    //   this.latexTypesetter.typeset(this.node);
+    // }
   }
 }

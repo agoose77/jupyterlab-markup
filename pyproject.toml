@@ -10,7 +10,7 @@ build-backend = "hatchling.build"
 name = "jupyterlab-markup"
 description = "Extensible markdown rendering support in markdown"
 readme = "README.md"
-license = "BSD-3-Clause"
+license = { file="LICENSE" }
 requires-python = ">=3.7"
 authors = [
     { name = "Angus Hollands", email = "goosey15@gmail.com" },

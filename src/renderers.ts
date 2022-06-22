@@ -25,7 +25,14 @@ export async function renderMarkdown(
   await renderHTML({
     host,
     source: renderer.render(source),
-    ...others
+    ...others,
+    shouldTypeset: false
+  });
+  console.log({
+    host,
+    source: renderer.render(source),
+    ...others,
+    shouldTypeset: false
   });
 
   await renderer.postRender(host);

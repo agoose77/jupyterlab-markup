@@ -4,7 +4,8 @@ import { svgbob } from './svgbob';
 import { mermaid } from './mermaid';
 import { footnote } from './footnote';
 import { taskLists } from './task-lists';
-import { postRender } from './post-render';
+import { typesetter } from './typesetter';
+import { dollarmath } from './dollarmath';
 
 /**
  * Builtin plugins provided by this labextension
@@ -16,5 +17,6 @@ export const BUILTINS = [
   mermaid,
   svgbob,
   taskLists,
-  postRender
+  typesetter,
+  dollarmath
 ];
