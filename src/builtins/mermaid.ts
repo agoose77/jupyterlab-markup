@@ -23,7 +23,7 @@ export const mermaid = simpleMarkdownItPlugin(PACKAGE_NS, {
   },
   plugin: async () => {
     const mermaidPlugin = await import(
-      /* webpackChunkName: "markdown-it-diagrams" */ '@agoose77/markdown-it-mermaid'
+      /* webpackChunkName: "markdown-it-mermaid" */ '@agoose77/markdown-it-mermaid'
     );
     return [mermaidPlugin.default];
   }
