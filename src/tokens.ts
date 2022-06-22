@@ -86,14 +86,23 @@ export namespace IMarkdownIt {
     /**
      * A lazy provider of a post-render hook
      */
+    preParseHook?(): Promise<IPreParseHook>;
+    /**
+     * A lazy provider of a post-render hook
+     */
     postRenderHook?(): Promise<IPostRenderHook>;
+  }
+  export interface IPreParseHook extends IRanked {
+    /**
+     * Pre-parsing callback
+     */
+    preParse(content: string): Promise<string>;
   }
   export interface IPostRenderHook extends IRanked {
     /**
      * Post-rendering callback
-     * @param node
      */
-    postRender(node: HTMLElement): Promise<void>;
+    postRender(node: HTMLElement): Promise<HTMLElement>;
   }
   export interface IRenderer {
     markdownIt: MarkdownIt;
@@ -103,6 +112,12 @@ export namespace IMarkdownIt {
      * @param content
      */
     render(content: string): string;
+
+    /**
+     * Interface to transform pre-parsed Markdown
+     * @param node
+     */
+    preParse(node: string): Promise<string>;
 
     /**
      * Interface to transform rendered HTML
