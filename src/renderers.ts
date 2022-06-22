@@ -28,13 +28,6 @@ export async function renderMarkdown(
     ...others,
     shouldTypeset: false
   });
-  console.log({
-    host,
-    source: renderer.render(source),
-    ...others,
-    shouldTypeset: false
-  });
-
   await renderer.postRender(host);
 }
 
