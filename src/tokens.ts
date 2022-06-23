@@ -87,7 +87,7 @@ export namespace IMarkdownIt {
     /**
      * Additional options to pass to the MarkdownIt constructor
      */
-    options?(widget: RenderedMarkdown): Promise<{ [key: string]: any }>;
+    options?(widget: RenderedMarkdown): Partial<MarkdownIt.Options>;
     /**
      * A lazy provider of a post-render hook
      */
