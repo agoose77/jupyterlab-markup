@@ -17,15 +17,17 @@ export const typesetterAdaptor: JupyterFrontEndPlugin<void> = {
       description:
         'Enable math rendering using JupyterLab ILatexTypesetter interface',
       documentationUrls: {},
-      postRenderHook: {
-        async postRender(node: HTMLElement): Promise<void> {
-          const math_selectors = ['.math'];
-          // Find nodes to typeset
-          const nodes = [
-            ...node.querySelectorAll(math_selectors.join(','))
-          ] as HTMLElement[];
-          // Only typeset these nodes
-          await Promise.all(nodes.map(node => typesetter.typeset(node)));
+      hooks: {
+        postRender: {
+          async run(node: HTMLElement): Promise<void> {
+            const math_selectors = ['.math'];
+            // Find nodes to typeset
+            const nodes = [
+              ...node.querySelectorAll(math_selectors.join(','))
+            ] as HTMLElement[];
+            // Only typeset these nodes
+            await Promise.all(nodes.map(node => typesetter.typeset(node)));
+          }
         }
       }
     };

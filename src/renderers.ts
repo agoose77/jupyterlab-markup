@@ -15,8 +15,11 @@ export async function renderMarkdown(
 ): Promise<void> {
   const { host, source, renderer, ...others } = options;
 
+  // Transform source
+  const markup = await renderer.preParse(source);
+
   // Clear the content if there is no source.
-  if (!source) {
+  if (!markup) {
     host.textContent = '';
     return;
   }
@@ -24,7 +27,7 @@ export async function renderMarkdown(
   // Render HTML.
   await renderHTML({
     host,
-    source: renderer.render(source),
+    source: renderer.render(markup),
     ...others,
     shouldTypeset: false
   });

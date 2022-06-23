@@ -153,8 +153,8 @@ export class MarkdownItManager implements IMarkdownIt {
     pluginProviders.sort(rankComparator);
 
     // Lifecycle hooks
-    const preParseHooks: IMarkdownIt.IPreParseHook[] = [];
-    const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
+    const preParseHooks: IMarkdownIt.IHook<string, string>[] = [];
+    const postRenderHooks: IMarkdownIt.IHook<HTMLElement, void>[] = [];
 
     // Build MarkdownIt and load lifecycle hooks
     for (const provider of pluginProviders) {
@@ -179,11 +179,11 @@ export class MarkdownItManager implements IMarkdownIt {
         }
 
         // Build table of lifecycle hooks
-        if (provider.preParseHook !== undefined) {
-          preParseHooks.push(provider.preParseHook);
+        if (provider.hooks?.preParse !== undefined) {
+          preParseHooks.push(provider.hooks?.preParse);
         }
-        if (provider.postRenderHook !== undefined) {
-          postRenderHooks.push(provider.postRenderHook);
+        if (provider.hooks?.postRender !== undefined) {
+          postRenderHooks.push(provider.hooks?.postRender);
         }
       } catch (err) {
         console.warn(
@@ -208,7 +208,7 @@ export class MarkdownItManager implements IMarkdownIt {
       // Run hooks serially
       preParse: async (content: string) => {
         for (const hook of preParseHooks) {
-          content = await hook.preParse(content);
+          content = await hook.run(content);
         }
         return content;
       },
@@ -216,7 +216,7 @@ export class MarkdownItManager implements IMarkdownIt {
       // Run hooks serially
       postRender: async (node: HTMLElement) => {
         for (const hook of postRenderHooks) {
-          await hook.postRender(node);
+          await hook.run(node);
         }
       }
     };

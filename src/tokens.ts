@@ -12,29 +12,32 @@ export const PACKAGE_NS = '@agoose77/jupyterlab-markup';
  */
 export const COMMAND_CATEGORY = 'Markdown Extensions';
 
-/* tslint:disable */
 /**
  * The MarkdownIt manager token.
  */
 export const IMarkdownIt = new Token<IMarkdownIt>(PACKAGE_NS);
-/* tslint:enable */
 
 /**
  * A manager for adding MarkdownIt plugins
  */
 export interface IMarkdownIt {
   addPluginProvider(provider: IMarkdownIt.IPluginProvider): void;
+
   removePluginProvider(id: string): void;
+
   getPluginProvider(id: string): IMarkdownIt.IPluginProvider | null;
+
   // Deprecated
   getMarkdownIt(
     widget: RenderedMarkdown,
     options?: MarkdownIt.Options
   ): Promise<MarkdownIt>;
+
   getRenderer(
     widget: RenderedMarkdown,
     options?: MarkdownIt.Options
   ): Promise<IMarkdownIt.IRenderer>;
+
   pluginProviderIds: string[];
 }
 
@@ -56,9 +59,11 @@ export namespace IMarkdownIt {
      */
     rank?: number;
   }
+
   export interface IPlugin {
     (md: MarkdownIt, ...params: any[]): void;
   }
+
   export interface IPluginProvider extends IRanked {
     /**
      * A unique identifier for the plugin, usually the name of the upstream package
@@ -80,35 +85,43 @@ export namespace IMarkdownIt {
      * Short usage examples of any new syntax with human-readable keys
      */
     examples?: { [key: string]: string };
+
     /**
      * A lazy provider of the plugin function and plugin options
      */
     plugin?(): Promise<[IPlugin, ...any]>;
+
     /**
      * Additional options to pass to the MarkdownIt constructor
      */
     options?(widget: RenderedMarkdown): Partial<MarkdownIt.Options>;
+
     /**
-     * A lazy provider of a post-render hook
+     * Lifecycle hooks called during the various Markdown rendering phases
      */
-    preParseHook?: IPreParseHook;
-    /**
-     * A lazy provider of a post-render hook
-     */
-    postRenderHook?: IPostRenderHook;
+    hooks?: IPluginHooks;
   }
-  export interface IPreParseHook extends IRanked {
-    /**
-     * Pre-parsing callback
-     */
-    preParse(content: string): Promise<string>;
+
+  /**
+   * Interface for markup plugin lifecycle hooks
+   */
+  export interface IHook<A, V> extends IRanked {
+    run(arg: A): Promise<V>;
   }
-  export interface IPostRenderHook extends IRanked {
+
+  export interface IPluginHooks {
     /**
-     * Post-rendering callback
+     * Source transformer hook, invoked before Markdown parsing
      */
-    postRender(node: HTMLElement): Promise<void>;
+    preParse?: IHook<string, string>;
+
+    /**
+     * Modifier hook, invoked after rendered Markdown
+     * has been added to the DOM
+     */
+    postRender?: IHook<HTMLElement, void>;
   }
+
   export interface IRenderer {
     markdownIt: MarkdownIt;
 
