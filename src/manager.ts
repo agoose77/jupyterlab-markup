@@ -162,16 +162,17 @@ export class MarkdownItManager implements IMarkdownIt {
       try {
         // Load MarkdownIt plugin
         if (provider.plugin !== undefined) {
-          const userOptions = this.userPluginOptions[provider.id] || [];
           const [plugin, ...pluginOptions] = await provider.plugin();
+          const userOptions = this.userPluginOptions[provider.id] || [];
           const maxOptions = Math.max(pluginOptions.length, userOptions.length);
+          // Compose user plugin options and provider options
+          // Preferring user options
           const compositeOptions = new Array(maxOptions);
-          let i = 0;
-          while (i < maxOptions) {
+          for (let i = 0; i < maxOptions; i++) {
             compositeOptions[i] =
               i < userOptions.length ? userOptions[i] : pluginOptions[i];
-            i++;
           }
+          // Build MarkdownIt instance
           md = md.use(plugin, ...compositeOptions);
         }
 
@@ -194,10 +195,12 @@ export class MarkdownItManager implements IMarkdownIt {
     postRenderHooks.sort(rankComparator);
 
     return {
+      // Get raw MarkdownIt object
       get markdownIt(): MarkdownIt {
         return md;
       },
 
+      // Parse and render Markdown
       render: content => md.render(content),
 
       // Run hooks serially
@@ -233,8 +236,7 @@ export class MarkdownItManager implements IMarkdownIt {
         continue;
       }
 
-      // eslint-disable-next-line eqeqeq
-      if (plugin.options == null) {
+      if (plugin.options === undefined) {
         continue;
       }
       try {
