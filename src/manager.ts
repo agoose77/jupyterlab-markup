@@ -221,16 +221,13 @@ export class MarkdownItManager implements IMarkdownIt {
    * Combine core options with base options, plugin provider options, and user settings
    */
   async getOptions(widget: RenderedMarkdown) {
-    let allOptions = {
-      ...this.baseMarkdownItOptions,
-      ...this.userMarkdownItOptions
-    };
-
     // Sort providers by rank
     const rankComparator = rankedComparator(100);
     const pluginProviders = [...this._pluginProviders.values()];
     pluginProviders.sort(rankComparator);
 
+    // Build options table
+    let allOptions = {};
     for (const plugin of pluginProviders) {
       if (this.userDisabledPlugins.indexOf(plugin.id) !== -1) {
         continue;
@@ -249,7 +246,11 @@ export class MarkdownItManager implements IMarkdownIt {
         );
       }
     }
-    return allOptions;
+    return {
+      ...this.baseMarkdownItOptions,
+      ...allOptions,
+      ...this.userMarkdownItOptions
+    };
   }
 
   /**
