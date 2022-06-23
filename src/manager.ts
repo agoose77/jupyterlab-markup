@@ -155,6 +155,8 @@ export class MarkdownItManager implements IMarkdownIt {
     // Lifecycle hooks
     const preParseHooks: IMarkdownIt.IPreParseHook[] = [];
     const postRenderHooks: IMarkdownIt.IPostRenderHook[] = [];
+
+    // Build MarkdownIt and load lifecycle hooks
     for (const provider of pluginProviders) {
       if (this.userDisabledPlugins.indexOf(provider.id) !== -1) {
         continue;
@@ -177,11 +179,11 @@ export class MarkdownItManager implements IMarkdownIt {
         }
 
         // Build table of lifecycle hooks
-        if (provider?.preParseHook !== undefined) {
-          preParseHooks.push(await provider.preParseHook());
+        if (provider.preParseHook !== undefined) {
+          preParseHooks.push(provider.preParseHook);
         }
-        if (provider?.postRenderHook !== undefined) {
-          postRenderHooks.push(await provider.postRenderHook());
+        if (provider.postRenderHook !== undefined) {
+          postRenderHooks.push(provider.postRenderHook);
         }
       } catch (err) {
         console.warn(

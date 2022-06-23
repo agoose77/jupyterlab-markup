@@ -91,11 +91,11 @@ export namespace IMarkdownIt {
     /**
      * A lazy provider of a post-render hook
      */
-    preParseHook?(): Promise<IPreParseHook>;
+    preParseHook?: IPreParseHook;
     /**
      * A lazy provider of a post-render hook
      */
-    postRenderHook?(): Promise<IPostRenderHook>;
+    postRenderHook?: IPostRenderHook;
   }
   export interface IPreParseHook extends IRanked {
     /**

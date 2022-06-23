@@ -17,22 +17,16 @@ export const typesetterAdaptor: JupyterFrontEndPlugin<void> = {
       description:
         'Enable math rendering using JupyterLab ILatexTypesetter interface',
       documentationUrls: {},
-      plugin: async () => {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        return [md => {}];
-      },
-      postRenderHook: async () => {
-        const math_selectors = ['.math'];
-        return {
-          async postRender(node: HTMLElement): Promise<void> {
-            // Find nodes to typeset
-            const nodes = [
-              ...node.querySelectorAll(math_selectors.join(','))
-            ] as HTMLElement[];
-            // Only typeset these nodes
-            await Promise.all(nodes.map(node => typesetter.typeset(node)));
-          }
-        };
+      postRenderHook: {
+        async postRender(node: HTMLElement): Promise<void> {
+          const math_selectors = ['.math'];
+          // Find nodes to typeset
+          const nodes = [
+            ...node.querySelectorAll(math_selectors.join(','))
+          ] as HTMLElement[];
+          // Only typeset these nodes
+          await Promise.all(nodes.map(node => typesetter.typeset(node)));
+        }
       }
     };
     markdownIt.addPluginProvider(provider);
