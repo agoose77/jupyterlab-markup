@@ -288,6 +288,10 @@ export class MarkdownItManager implements IMarkdownIt {
         return;
       }
 
+      Mode.ensure(spec).catch(err =>
+        console.warn(`Failed to load CodeMirror mode ${lang}:`, spec, err)
+      );
+
       const el = document.createElement('div');
       try {
         Mode.run(str, spec.mime, el);
