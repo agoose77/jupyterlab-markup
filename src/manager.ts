@@ -285,7 +285,7 @@ export class MarkdownItManager implements IMarkdownIt {
 
     return {
       run: async source => {
-        let newModes = new Map<string, Promise<any>>();
+        const newModes = new Map<string, Promise<any>>();
         let match: RegExpMatchArray;
         while ((match = fenced.exec(source))) {
           if (!newModes.has(match[1])) {
