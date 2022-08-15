@@ -156,6 +156,11 @@ export class MarkdownItManager implements IMarkdownIt {
     const preParseHooks: IMarkdownIt.IHook<string, string>[] = [];
     const postRenderHooks: IMarkdownIt.IHook<HTMLElement, void>[] = [];
 
+    // add mode pre-loading hook if using default highlighter
+    if (this.highlightCode === allOptions.highlight) {
+      preParseHooks.push(this.getModePreloader());
+    }
+
     // Build MarkdownIt and load lifecycle hooks
     for (const provider of pluginProviders) {
       if (this.userDisabledPlugins.indexOf(provider.id) !== -1) {
@@ -269,6 +274,29 @@ export class MarkdownItManager implements IMarkdownIt {
       typographer: true,
       langPrefix: `cm-s-${CodeMirrorEditor.defaultConfig.theme} language-`,
       highlight: this.highlightCode
+    };
+  }
+
+  /**
+   * A `preParse` hook which preloads CodeMirror modes.
+   */
+  protected getModePreloader(): IMarkdownIt.IHook<string, string> {
+    const fenced = new RegExp(/^[~`]{3}([^\s]+)/g);
+
+    return {
+      run: async source => {
+        const newModes = new Map<string, Promise<any>>();
+        let match: RegExpMatchArray;
+        while ((match = fenced.exec(source))) {
+          if (!newModes.has(match[1])) {
+            newModes.set(match[1], Mode.ensure(match[1]));
+          }
+        }
+        if (newModes.size) {
+          Promise.all(newModes.values()).catch(console.warn);
+        }
+        return source;
+      }
     };
   }
 
