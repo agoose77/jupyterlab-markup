@@ -39,13 +39,13 @@
     "eslint:check": "eslint . --ext .ts,.tsx",
     "install:extension": "jupyter labextension develop --overwrite .",
     "lint": "prettier --list-different --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md,.yml}\"",
-    "prepare": "jlpm run build:prod",
+    "prepare": "jlpm run clean && cd node_modules/@agoose77/markdown-it-mermaid && rm -f package-lock.json && jlpm && jlpm tsc --skipLibCheck && cd ../.. && jlpm run build:prod",
     "watch": "run-p watch:src watch:labextension",
     "watch:labextension": "jupyter labextension watch .",
     "watch:src": "tsc -w"
   },
   "dependencies": {
-    "@agoose77/markdown-it-mermaid": "^1.0.3",
+    "@agoose77/markdown-it-mermaid": "git+https://github.com/agoose77/markdown-it-mermaid#2056a548be79d15dd8b6a0c55ae7cac27afc723d",
     "@agoose77/markdown-it-svgbob": "0.1.0a0",
     "@jupyterlab/application": "^3.0.0",
     "@jupyterlab/apputils": "^3.0.0",
