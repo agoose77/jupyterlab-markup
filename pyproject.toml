@@ -8,7 +8,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "jupyterlab-markup"
-description = "Extensible markdown rendering support in markdown"
+description = "Extensible markdown rendering for JupyterLab, powered by markdown-it."
 readme = "README.md"
 license = { file="LICENSE" }
 requires-python = ">=3.7"
@@ -41,10 +41,24 @@ dependencies = [
 dynamic = [
     "version",
 ]
+[project.optional-dependencies]
+docs = [
+    "docutils >=0.18",
+    "jupyterlite ==0.1.0b12",
+    "myst-parser",
+    "pkginfo",
+    "pydata-sphinx-theme >=0.10.0,<0.11",
+    "sphinx >=5,<6",
+    "sphinx-copybutton",
+    "tomli",
+]
 
 [project.urls]
-"Bug Tracker" = "https://github.com/agoose77/jupyterlab-markup/issues"
+Documentation = "https://jupyterlab-markup.rtfd.io"
 Homepage = "https://github.com/agoose77/jupyterlab-markup.git"
+Issues = "https://github.com/agoose77/jupyterlab-markup/issues"
+Pypi = "https://pypi.org/project/jupyterlab-markup"
+Source = "https://github.com/agoose77/jupyterlab-markup"
 
 [tool.hatch.version]
 source = "nodejs"

@@ -4,6 +4,7 @@ import json
 import os
 import subprocess
 import sys
+import tomli
 from pathlib import Path
 
 from sphinx.application import Sphinx
@@ -15,13 +16,15 @@ HERE = CONF_PY.parent
 ROOT = HERE.parent
 DIST = ROOT / "dist"
 DEMO = ROOT / "demo"
+PYPROJ = ROOT / "pyproject.toml"
 APP_PKG = ROOT / "package.json"
+PROJ_DATA = tomli.loads(PYPROJ.read_text(encoding="utf-8"))
 APP_DATA = json.loads(APP_PKG.read_text(encoding="utf-8"))
 RTD = json.loads(os.environ.get("READTHEDOCS", "False").lower())
 
 # metadata
 author = APP_DATA["author"]
-project = APP_DATA["name"]
+project = PROJ_DATA["project"]["name"]
 copyright = f"{datetime.date.today().year}, {author}"
 
 # The full version, including alpha/beta/rc tags
@@ -64,8 +67,6 @@ exclude_patterns = [
     "babel.config.*",
     "jest-setup.js",
     "jest.config.js",
-    "jupyter_execute",
-    ".jupyter_cache",
     "test/",
     "tsconfig.*",
     "webpack.config.*",
