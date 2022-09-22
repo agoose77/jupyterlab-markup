@@ -6,12 +6,7 @@ import { markdownIcon, LabIcon } from '@jupyterlab/ui-components';
 // optional
 import { IMainMenu } from '@jupyterlab/mainmenu';
 
-import {
-  CommandIDs,
-  IMarkdownIt,
-  PACKAGE_NS,
-  COMMAND_CATEGORY
-} from './tokens';
+import { CommandIDs, IMarkdownIt, PACKAGE_NS, COMMAND_CATEGORY } from './tokens';
 import { MarkdownItManager } from './manager';
 import { RenderedMarkdown } from './widgets';
 import { MarkdownItSettings } from './settings';
@@ -60,9 +55,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
       execute: args => {
         if (settingsMain === null) {
           const model = new MarkdownItSettings.Model();
-          model.advancedRequested.connect(() =>
-            commands.execute('settingeditor:open')
-          );
+          model.advancedRequested.connect(() => commands.execute('settingeditor:open'));
           model.manager = manager;
           const content = new MarkdownItSettings(model);
           settingsMain = new MainAreaWidget({ content });
@@ -87,10 +80,7 @@ const core: JupyterFrontEndPlugin<IMarkdownIt> = {
 
     if (menu) {
       menu.settingsMenu.addGroup(
-        [
-          { command: CommandIDs.toggleRenderer },
-          { command: CommandIDs.showSettings }
-        ],
+        [{ command: CommandIDs.toggleRenderer }, { command: CommandIDs.showSettings }],
         100
       );
     }

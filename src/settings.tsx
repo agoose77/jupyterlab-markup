@@ -65,8 +65,8 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
         <article>
           <h3 id={PLUGIN_ID}>Markdown-it Plugins</h3>
           <blockquote>
-            Extensions can be individually enabled or disabled with the
-            checkboxes below. See {advancedLink} for more fine-grained control.
+            Extensions can be individually enabled or disabled with the checkboxes
+            below. See {advancedLink} for more fine-grained control.
           </blockquote>
           {providers.map(this.renderPluginProvider, this)}
         </article>
@@ -159,9 +159,7 @@ export class MarkdownItSettings extends VDomRenderer<MarkdownItSettings.Model> {
     );
   }
 
-  protected onPluginEnabledChanged = (
-    evt: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  protected onPluginEnabledChanged = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = evt.currentTarget;
     this.model.setPluginEnabled(value, checked);
   };
@@ -229,8 +227,7 @@ export namespace MarkdownItSettings {
 
       // eslint-disable-next-line eqeqeq
       if (composite != null) {
-        this._disabledPlugins = (composite['disabled-plugins'] ||
-          []) as string[];
+        this._disabledPlugins = (composite['disabled-plugins'] || []) as string[];
 
         this._providers = this.manager.pluginProviderIds.map(
           this.manager.getPluginProvider,
@@ -242,10 +239,7 @@ export namespace MarkdownItSettings {
       this.stateChanged.emit(void 0);
     }
 
-    sortByTitle(
-      a: IMarkdownIt.IPluginProvider,
-      b: IMarkdownIt.IPluginProvider
-    ) {
+    sortByTitle(a: IMarkdownIt.IPluginProvider, b: IMarkdownIt.IPluginProvider) {
       return a.title.localeCompare(b.title);
     }
   }
