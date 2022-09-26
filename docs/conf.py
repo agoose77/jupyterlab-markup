@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.autosectionlabel",
     "myst_parser",
     "sphinx_copybutton",
+    "sphinx-jsonschema"
 ]
 
 autosectionlabel_prefix_document = True
@@ -84,10 +85,6 @@ html_context = {
     "github_repo": "jupyterlab-markup",
     "github_version": "main",
     "doc_path": "docs",
-}
-
-html_sidebars = {
-  "**": []
 }
 
 def ensure_wheel():

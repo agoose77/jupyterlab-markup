@@ -1,8 +1,8 @@
-## Contributing
+# Contributing
 
 > Note: You will need NodeJS to build the extension package.
 
-### Get Started
+## Get Started
 
 The `jlpm` command is JupyterLab's pinned version of [yarn](https://yarnpkg.com/) that
 is installed with JupyterLab. You may use `yarn` or `npm` in lieu of `jlpm` below.
@@ -18,7 +18,7 @@ jupyter labextension develop . --overwrite
 jlpm run build
 ```
 
-### Watching Sources
+## Watching Sources
 
 You can watch the source directory and run JupyterLab at the same time in different
 terminals to watch for changes in the extension's source and automatically rebuild the

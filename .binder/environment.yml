@@ -28,8 +28,9 @@ dependencies:
   - pydata-sphinx-theme >=0.10.0,<0.11
   - sphinx >=5,<6
   - sphinx-copybutton
+  - sphinx-jsonschema
   - tomli
   # pip
   - pip
   - pip:
-      - jupyterlite ==0.1.0b12
+      - jupyterlite ==0.1.0b13

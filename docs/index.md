@@ -1,17 +1,20 @@
+```{hint}
+Try the [`jupyterlab-markup` demo][demo] right now in your browser.
+
+[demo]: ./demo.md
+```
+
 ```{include} ../README.md
 
 ```
 
-## Demo
+## Learn More
 
-<iframe src="./_static/retro/notebooks/index.html?path=Examples.ipynb" ></iframe>
+```{toctree}
+:maxdepth: 2
 
-```{include} ../CONTRIBUTING.md
-
-```
-
-## License
-
-```{include} ../LICENSE
-
+demo
+configuring
+contributing
+license
 ```
