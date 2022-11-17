@@ -9,7 +9,7 @@
 [ci-badge]: https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml/badge.svg
 [ci]: https://github.com/agoose77/jupyterlab-markup/actions/workflows/ci.yml
 
-Additional markdown rendering support in markdown.
+A JupyterLab extension to enable markdown-it rendering, with support for markdown-it plugins
 
 This extension is composed of a Python package named `jupyterlab_markup`
 for the server extension and a NPM package named `@agoose77/jupyterlab-markup`
