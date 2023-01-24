@@ -14,8 +14,7 @@ export const typesetterAdaptor: JupyterFrontEndPlugin<void> = {
     const provider: IMarkdownIt.IPluginProvider = {
       id: plugin_id,
       title: 'ILatexTypesetter Adaptor',
-      description:
-        'Enable math rendering using JupyterLab ILatexTypesetter interface',
+      description: 'Enable math rendering using JupyterLab ILatexTypesetter interface',
       documentationUrls: {},
       hooks: {
         postRender: {
