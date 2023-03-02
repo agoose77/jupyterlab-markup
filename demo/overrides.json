@@ -1,0 +1,11 @@
+{
+  "@agoose77/jupyterlab-markup": {
+    "plugin-options": {
+      "@agoose77/markdown-it-mermaid": [
+        {
+          "theme": "forest"
+        }
+      ]
+    }
+  }
+}

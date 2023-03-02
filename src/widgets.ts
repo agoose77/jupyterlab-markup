@@ -34,10 +34,7 @@ export class RenderedMarkdown extends RenderedHTMLCommon {
    */
   async render(model: IRenderMime.IMimeModel): Promise<void> {
     if (this.renderer === null) {
-      this.renderer = await RenderedMarkdown.markdownItManager.getRenderer(
-        this,
-        {}
-      );
+      this.renderer = await RenderedMarkdown.markdownItManager.getRenderer(this, {});
     }
     return await renderers.renderMarkdown({
       host: this.node,
