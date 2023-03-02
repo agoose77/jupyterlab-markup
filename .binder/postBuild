@@ -3,7 +3,7 @@ set -eux
 
 # Install the labextension
 jlpm run bootstrap
-pip install -e . --ignore-installed --no-deps -vv
+python -m pip install -e . --ignore-installed --no-deps -vv
 jupyter labextension develop . --overwrite
 
 # List extensions
